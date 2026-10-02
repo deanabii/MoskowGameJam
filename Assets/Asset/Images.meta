@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Asset/Images.meta
 guid: fe59d3b47c883b148b441911e9e0fdc1
+========
+guid: 774f8f90640ef4652ab001ea3785c7d5
+>>>>>>>> c4056ddb770d05d0a6c097870cecfbf305ed1052:Assets/3D Tree.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
