@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdd9654760671804381f3d0252f8b4ea, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.PlayerGrabbableInteraction
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.PlayerObjectInteraction
   playerCamera: {fileID: 0}
   playerTransform: {fileID: 440295641}
   holdOffsetPosition: {x: 0.5, y: -0.52, z: 1.5}
@@ -764,7 +764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.ToolInteraction.ToolInteractable
   toolCinemachineCamera: {fileID: 364362694}
-  activePriority: 20
+  activePriority: 100
   inactivePriority: 0
   glowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   glowIntensity: 1.5
@@ -776,6 +776,7 @@ MonoBehaviour:
   exitPromptSprite: {fileID: 0}
   placedObjectsList: []
   itemPlacementPoint: {fileID: 0}
+  interactionScores: []
   OnItemPlaced:
     m_PersistentCalls:
       m_Calls: []
@@ -895,7 +896,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbbea93c550a5438164fd86fc3f87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.ToolInteraction.SpecificInteractions.ToolTimingMiniGameInteraction
-  needleSpeed: 1.2
+  gameMode: 1
+  needleSpeed: 0.5
   requiredSuccessHits: 3
   greenZoneMin: 0.4
   greenZoneMax: 0.6
@@ -913,6 +915,10 @@ MonoBehaviour:
   OnTimingCompleted:
     m_PersistentCalls:
       m_Calls: []
+  needlePosition: 0
+  currentHitCount: 0
+  totalInputScore: 0
+  calculatedFinalScore: 0
 --- !u!1 &1713442030
 GameObject:
   m_ObjectHideFlags: 0
@@ -1459,11 +1465,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8487075836695682437, guid: 18f76a8890addba48a79c2a5ef436089, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -301.98218
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8487075836695682437, guid: 18f76a8890addba48a79c2a5ef436089, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -75.50534
+      value: -211
       objectReference: {fileID: 0}
     - target: {fileID: 8487075836695682437, guid: 18f76a8890addba48a79c2a5ef436089, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

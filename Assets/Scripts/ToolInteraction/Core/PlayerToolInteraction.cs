@@ -23,7 +23,7 @@ namespace MoskowGameJam.ToolInteraction
 
         [Header("Keybind Settings")]
         [Tooltip("Tombol untuk masuk / keluar dari interaksi alat (Cinemachine View)")]
-        [SerializeField] private KeyCode actionKey = KeyCode.R;
+        [SerializeField] private KeyCode actionKey = KeyCode.F;
 
         [Tooltip("Tombol untuk menempatkan objek yang dipegang ke dalam alat")]
         [SerializeField] private KeyCode placingKey = KeyCode.E;
@@ -37,6 +37,7 @@ namespace MoskowGameJam.ToolInteraction
         private ToolInteractable currentTargetTool;
         private ToolInteractable activeInteractionTool;
         private bool isInteracting;
+        private bool justEnteredInteraction;
 
         public bool IsInteracting => isInteracting;
         public bool IsHoveringTool => currentTargetTool != null;
@@ -60,6 +61,25 @@ namespace MoskowGameJam.ToolInteraction
 #else
                     playerCamera = Object.FindObjectOfType<Camera>();
 #endif
+                }
+            }
+
+            EnsureCinemachineBrainOnCamera();
+        }
+
+        private void EnsureCinemachineBrainOnCamera()
+        {
+            if (playerCamera == null) return;
+
+            Component brain = playerCamera.GetComponent("CinemachineBrain") ?? playerCamera.GetComponent("Unity.Cinemachine.CinemachineBrain");
+            if (brain == null)
+            {
+                System.Type brainType = System.Type.GetType("Unity.Cinemachine.CinemachineBrain, Unity.Cinemachine") 
+                                     ?? System.Type.GetType("Cinemachine.CinemachineBrain, Cinemachine");
+                if (brainType != null)
+                {
+                    playerCamera.gameObject.AddComponent(brainType);
+                    Debug.Log("<color=green>[PlayerToolInteraction] CinemachineBrain otomatis ditambahkan ke Main Camera.</color>");
                 }
             }
         }
@@ -148,33 +168,38 @@ namespace MoskowGameJam.ToolInteraction
             }
         }
 
-        private void EnterToolInteraction(ToolInteractable tool)
+        public void EnterToolInteraction(ToolInteractable tool)
         {
-            if (tool == null) return;
+            if (tool == null || isInteracting) return;
 
             isInteracting = true;
+            justEnteredInteraction = true;
             activeInteractionTool = tool;
 
             // Matikan glow saat mode interaksi aktif
             activeInteractionTool.SetGlow(false);
 
-            // Sembunyikan Dual UI Prompt dan tampilkan Exit Prompt [R] Selesai
+            // Sembunyikan Dual UI Prompt dan tampilkan Exit Prompt di Horizontal Layout Container
             if (ToolInteractionUI.Instance != null)
             {
                 ToolInteractionUI.Instance.HideDualPrompts();
                 ToolInteractionUI.Instance.ShowExitPrompt(
-                    activeInteractionTool.GetFormattedExitPrompt(actionKey),
+                    "[F] Selesai",
                     activeInteractionTool.ExitPromptSprite
                 );
+            }
+            else if (PlayerObjectInteraction.Instance != null)
+            {
+                PlayerObjectInteraction.Instance.SetExitPrompt("[F] Selesai");
             }
 
             // Kunci pergerakan player
             SetPlayerMovementLocked(true);
 
-            // Aktifkan Cinemachine Virtual Camera
+            // Aktifkan Cinemachine Virtual Camera (Fokus Kamera ke Alat)
             activeInteractionTool.SetCameraActive(true);
 
-            Debug.Log($"[PlayerToolInteraction] Masuk mode interaksi alat {activeInteractionTool.name}");
+            Debug.Log($"[PlayerToolInteraction] Masuk mode interaksi alat & minigame {activeInteractionTool.name}");
         }
 
         public void ExitToolInteraction()
@@ -189,6 +214,10 @@ namespace MoskowGameJam.ToolInteraction
             {
                 ToolInteractionUI.Instance.HideExitPrompt();
             }
+            else if (PlayerObjectInteraction.Instance != null)
+            {
+                PlayerObjectInteraction.Instance.ClearCustomPrompts();
+            }
 
             // Buka penguncian pergerakan player
             SetPlayerMovementLocked(false);
@@ -196,11 +225,9 @@ namespace MoskowGameJam.ToolInteraction
             ToolInteractable exitedTool = activeInteractionTool;
             activeInteractionTool = null;
             isInteracting = false;
+            justEnteredInteraction = false;
 
             Debug.Log($"[PlayerToolInteraction] Keluar dari mode interaksi alat {exitedTool.name}");
-
-            // Periksa apakah player masih memandang alat saat keluar
-            HandleRaycastHover();
         }
 
         private void HandleActiveInteraction()
@@ -211,14 +238,21 @@ namespace MoskowGameJam.ToolInteraction
                 return;
             }
 
+            // Abaikan input keluar pada frame persis saat masuk mode interaksi
+            if (justEnteredInteraction)
+            {
+                justEnteredInteraction = false;
+                return;
+            }
+
             // Update mini-game interaksi spesifik
             if (activeInteractionTool.SpecificInteraction != null)
             {
                 activeInteractionTool.SpecificInteraction.OnUpdateInteraction();
             }
 
-            // Tekan [R] Lagi -> Keluar dari Mode Interaksi Alat
-            if (IsKeyPressedThisFrame(actionKey))
+            // Tekan tombol interaksi/keluar (F, R, atau Escape) untuk selesai & kembali ke kamera player
+            if (IsKeyPressedThisFrame(actionKey) || IsKeyPressedThisFrame(KeyCode.F) || IsKeyPressedThisFrame(KeyCode.Escape))
             {
                 ExitToolInteraction();
             }

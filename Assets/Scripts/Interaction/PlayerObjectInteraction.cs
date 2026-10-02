@@ -97,6 +97,11 @@ namespace MoskowGameJam.Interaction
             if (Instance == null) Instance = this;
             AutoAssignReferences();
             EnsureGrabHoldTransform();
+
+            if (GetComponent<MoskowGameJam.ToolInteraction.PlayerToolInteraction>() == null)
+            {
+                gameObject.AddComponent<MoskowGameJam.ToolInteraction.PlayerToolInteraction>();
+            }
         }
 
         private void OnEnable()
@@ -453,7 +458,24 @@ namespace MoskowGameJam.Interaction
             {
                 if (heldObject == null && currentTool != null)
                 {
-                    currentTool.TriggerAction();
+                    var toolInteraction = MoskowGameJam.ToolInteraction.PlayerToolInteraction.Instance;
+                    if (toolInteraction == null)
+                    {
+                        toolInteraction = GetComponent<MoskowGameJam.ToolInteraction.PlayerToolInteraction>();
+                        if (toolInteraction == null)
+                        {
+                            toolInteraction = gameObject.AddComponent<MoskowGameJam.ToolInteraction.PlayerToolInteraction>();
+                        }
+                    }
+
+                    if (toolInteraction != null)
+                    {
+                        toolInteraction.EnterToolInteraction(currentTool);
+                    }
+                    else
+                    {
+                        currentTool.SetCameraActive(true);
+                    }
                 }
             }
 

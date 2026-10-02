@@ -8,14 +8,27 @@ using UnityEngine.InputSystem;
 
 namespace MoskowGameJam.ToolInteraction.SpecificInteractions
 {
+    public enum TimingGameMode
+    {
+        [Tooltip("Semua input harus Perfect (Hijau). Hit Kuning/Merah tidak dihitung sebagai sukses.")]
+        PerfectOnly,
+
+        [Tooltip("Semua input diterima (Merah=1, Kuning=2, Hijau=3). Setiap hit menambah hit count.")]
+        AcceptAllHits
+    }
+
     [RequireComponent(typeof(ToolInteractable))]
     public class ToolTimingMiniGameInteraction : MonoBehaviour, IToolMiniGameInteraction
     {
+        [Header("Mode Settings")]
+        [Tooltip("PerfectOnly: Hanya hit hijau yang dihitung.\nAcceptAllHits: Semua hit (Merah/Kuning/Hijau) diterima.")]
+        [SerializeField] private TimingGameMode gameMode = TimingGameMode.AcceptAllHits;
+
         [Header("Timing Meter Settings")]
         [Tooltip("Kecepatan gerak jarum indikator")]
-        [SerializeField] private float needleSpeed = 1.2f;
+        [SerializeField] private float needleSpeed = 0.4f;
 
-        [Tooltip("Jumlah penekanan tombol sukses di area hijau yang dibutuhkan (misal: 3 kali)")]
+        [Tooltip("Jumlah penekanan tombol yang dibutuhkan untuk menyelesaikan mini-game")]
         [SerializeField] private int requiredSuccessHits = 3;
 
         [Header("Zone Bounds (Normalized 0.0 - 1.0)")]
@@ -30,33 +43,49 @@ namespace MoskowGameJam.ToolInteraction.SpecificInteractions
         public UnityEvent OnMissHit;
         public UnityEvent OnTimingCompleted;
 
+        [Header("Debug (Runtime)")]
+        [Range(0f, 1f)] [SerializeField] private float needlePosition; // 0.0 to 1.0
+        [SerializeField] private int currentHitCount;
+        [SerializeField] private int totalInputScore;
+        [SerializeField] private float calculatedFinalScore;
+
         private bool isActive;
         private bool isCompleted;
-        private int currentSuccessCount;
-        private float needlePosition; // 0.0 to 1.0
         private bool movingRight = true;
+        private ToolInteractable toolInteractable;
 
+        public TimingGameMode GameMode => gameMode;
         public bool IsActive => isActive;
         public bool IsCompleted => isCompleted;
-        public float ProgressNormalized => Mathf.Clamp01((float)currentSuccessCount / requiredSuccessHits);
+        public float ProgressNormalized => Mathf.Clamp01((float)currentHitCount / requiredSuccessHits);
+        public float FinalScore => calculatedFinalScore;
+
+        private void Awake()
+        {
+            toolInteractable = GetComponent<ToolInteractable>();
+        }
 
         public void OnBeginInteraction()
         {
             isActive = true;
             isCompleted = false;
-            currentSuccessCount = 0;
+            currentHitCount = 0;
+            totalInputScore = 0;
+            calculatedFinalScore = 0f;
             needlePosition = 0f;
             movingRight = true;
 
             if (TimingMeterUI.Instance != null)
             {
                 TimingMeterUI.Instance.ShowMeterUI();
-                TimingMeterUI.Instance.ConfigureZones(greenZoneMin, greenZoneMax, yellowZoneMin);
+                TimingMeterUI.Instance.ConfigureZones(greenZoneMin, greenZoneMax, yellowZoneMin, yellowZoneMax);
                 TimingMeterUI.Instance.UpdateProgress(ProgressNormalized);
-                TimingMeterUI.Instance.SetFeedback("Tekan [SPASI] saat jarum di area HIJAU!", Color.white);
+
+                string modeInfo = gameMode == TimingGameMode.PerfectOnly ? " [Hanya HIJAU yang diterima]" : " [Semua Hit Diterima]";
+                TimingMeterUI.Instance.SetFeedback($"Tekan [SPASI] saat jarum berayun!{modeInfo}", Color.white);
             }
 
-            Debug.Log($"[ToolTimingMiniGameInteraction] Mini-game timing dimulai pada {gameObject.name}");
+            Debug.Log($"[ToolTimingMiniGameInteraction] Mini-game timing dimulai pada {gameObject.name} (Mode: {gameMode})");
         }
 
         public void OnUpdateInteraction()
@@ -110,53 +139,141 @@ namespace MoskowGameJam.ToolInteraction.SpecificInteractions
 
         private void EvaluateTimingHit()
         {
-            if (needlePosition >= greenZoneMin && needlePosition <= greenZoneMax)
+            // Delegate hit evaluation to UI for exact matching
+            int hitResult = 0; // 2 = Green, 1 = Yellow, 0 = Red
+            if (TimingMeterUI.Instance != null)
             {
-                // Perfect Green Zone
-                currentSuccessCount++;
-                OnPerfectHit?.Invoke();
-
-                if (TimingMeterUI.Instance != null)
-                {
-                    TimingMeterUI.Instance.SetFeedback("SEMPURNA! 🎯", Color.green);
-                    TimingMeterUI.Instance.UpdateProgress(ProgressNormalized);
-                }
-
-                Debug.Log($"[ToolTimingMiniGameInteraction] Perfect Hit! ({currentSuccessCount}/{requiredSuccessHits})");
-
-                if (currentSuccessCount >= requiredSuccessHits)
-                {
-                    isCompleted = true;
-                    OnTimingCompleted?.Invoke();
-                    if (TimingMeterUI.Instance != null)
-                    {
-                        TimingMeterUI.Instance.SetFeedback("SELESAI! SANGAT BAGUS!", Color.cyan);
-                    }
-                    Debug.Log($"[ToolTimingMiniGameInteraction] Sukses! Mini-game timing selesai pada {gameObject.name}");
-                }
-            }
-            else if (needlePosition >= yellowZoneMin && needlePosition <= yellowZoneMax)
-            {
-                // Good Yellow Zone
-                OnGoodHit?.Invoke();
-                if (TimingMeterUI.Instance != null)
-                {
-                    TimingMeterUI.Instance.SetFeedback("BAGUS! Coba pas di hijau!", Color.yellow);
-                }
-                Debug.Log("[ToolTimingMiniGameInteraction] Good Hit!");
+                hitResult = TimingMeterUI.Instance.EvaluateHit(needlePosition);
             }
             else
             {
-                // Miss Red Zone
-                if (currentSuccessCount > 0) currentSuccessCount--;
-                OnMissHit?.Invoke();
+                if (needlePosition >= greenZoneMin && needlePosition <= greenZoneMax)
+                    hitResult = 2;
+                else if (needlePosition >= yellowZoneMin && needlePosition <= yellowZoneMax)
+                    hitResult = 1;
+                else
+                    hitResult = 0;
+            }
 
-                if (TimingMeterUI.Instance != null)
+            // Nilai hit: Merah = 1, Kuning = 2, Hijau = 3
+            int hitScore = hitResult == 2 ? 3 : (hitResult == 1 ? 2 : 1);
+            string zoneName = hitResult == 2 ? "GREEN (3 pts)" : hitResult == 1 ? "YELLOW (2 pts)" : "RED (1 pt)";
+
+            Debug.Log($"[TimingDebug] HIT at {needlePosition * 100f:F1}% → {zoneName} | Mode={gameMode} | ResultCode={hitResult}");
+
+            bool hitAccepted = false;
+
+            if (gameMode == TimingGameMode.PerfectOnly)
+            {
+                if (hitResult == 2) // Perfect Green Only
                 {
-                    TimingMeterUI.Instance.SetFeedback("MELESET! ❌", Color.red);
-                    TimingMeterUI.Instance.UpdateProgress(ProgressNormalized);
+                    hitAccepted = true;
+                    totalInputScore += hitScore;
+                    currentHitCount++;
+                    OnPerfectHit?.Invoke();
+
+                    if (TimingMeterUI.Instance != null)
+                    {
+                        TimingMeterUI.Instance.SetFeedback("SEMPURNA! 🎯 (+3)", Color.green);
+                    }
                 }
-                Debug.Log("[ToolTimingMiniGameInteraction] Miss Hit!");
+                else if (hitResult == 1) // Yellow
+                {
+                    OnGoodHit?.Invoke();
+                    if (TimingMeterUI.Instance != null)
+                    {
+                        TimingMeterUI.Instance.SetFeedback("KUNING! Mode Perfect: Coba pas di hijau!", Color.yellow);
+                    }
+                }
+                else // Red
+                {
+                    if (currentHitCount > 0)
+                    {
+                        currentHitCount--;
+                        totalInputScore = Mathf.Max(0, totalInputScore - 3);
+                    }
+                    OnMissHit?.Invoke();
+                    if (TimingMeterUI.Instance != null)
+                    {
+                        TimingMeterUI.Instance.SetFeedback("MELESET! ❌ Progress berkurang", Color.red);
+                    }
+                }
+            }
+            else // AcceptAllHits Mode
+            {
+                hitAccepted = true;
+                totalInputScore += hitScore;
+                currentHitCount++;
+
+                switch (hitResult)
+                {
+                    case 2:
+                        OnPerfectHit?.Invoke();
+                        if (TimingMeterUI.Instance != null)
+                        {
+                            TimingMeterUI.Instance.SetFeedback("SEMPURNA! 🎯 (+3)", Color.green);
+                        }
+                        break;
+                    case 1:
+                        OnGoodHit?.Invoke();
+                        if (TimingMeterUI.Instance != null)
+                        {
+                            TimingMeterUI.Instance.SetFeedback("BAGUS! ⚠️ (+2)", Color.yellow);
+                        }
+                        break;
+                    default:
+                        OnMissHit?.Invoke();
+                        if (TimingMeterUI.Instance != null)
+                        {
+                            TimingMeterUI.Instance.SetFeedback("KURANG PAS! ❌ (+1)", Color.red);
+                        }
+                        break;
+                }
+            }
+
+            if (TimingMeterUI.Instance != null)
+            {
+                TimingMeterUI.Instance.UpdateProgress(ProgressNormalized);
+            }
+
+            // Check completion
+            if (currentHitCount >= requiredSuccessHits)
+            {
+                CompleteMiniGame();
+            }
+        }
+
+        private void CompleteMiniGame()
+        {
+            isCompleted = true;
+
+            // Hitungan Nilai Total: Total input dari user / (jumlah required hits x 3)
+            int maxPossibleScore = requiredSuccessHits * 3;
+            calculatedFinalScore = Mathf.Clamp01((float)totalInputScore / maxPossibleScore);
+
+            Debug.Log($"<color=cyan>[ToolTimingMiniGameInteraction] Mini-game SELESAI di {gameObject.name}! " +
+                      $"Total Input Score: {totalInputScore}/{maxPossibleScore} | Final Score: {calculatedFinalScore:F2} ({calculatedFinalScore * 100f:F0}%)</color>");
+
+            // Tambahkan nilai baru ke list di ToolInteractable
+            if (toolInteractable == null)
+            {
+                toolInteractable = GetComponent<ToolInteractable>();
+            }
+
+            if (toolInteractable != null)
+            {
+                toolInteractable.AddScore(calculatedFinalScore);
+            }
+            else
+            {
+                Debug.LogWarning($"[ToolTimingMiniGameInteraction] ToolInteractable tidak ditemukan pada {gameObject.name} untuk menambahkan skor!");
+            }
+
+            OnTimingCompleted?.Invoke();
+
+            if (TimingMeterUI.Instance != null)
+            {
+                TimingMeterUI.Instance.SetFeedback($"SELESAI! Nilai: {calculatedFinalScore * 100f:F0}% 🏆", Color.cyan);
             }
         }
 

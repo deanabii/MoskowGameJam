@@ -16,7 +16,7 @@ namespace MoskowGameJam.ToolInteraction
         [SerializeField] private GameObject toolCinemachineCamera;
 
         [Tooltip("Priority saat interaksi aktif")]
-        [SerializeField] private int activePriority = 20;
+        [SerializeField] private int activePriority = 100;
 
         [Tooltip("Priority saat interaksi tidak aktif")]
         [SerializeField] private int inactivePriority = 0;
@@ -43,6 +43,13 @@ namespace MoskowGameJam.ToolInteraction
         [SerializeField] private List<GameObject> placedObjectsList = new List<GameObject>();
         [SerializeField] private Transform itemPlacementPoint;
 
+        [Header("Score Settings")]
+        [Tooltip("Daftar nilai hasil interaksi / minigame (0.0 - 1.0)")]
+        [SerializeField] private List<float> interactionScores = new List<float>();
+
+        [Tooltip("Nilai akhir (rata-rata dari semua interactionScores)")]
+        [SerializeField] private float finalAverageScore;
+
         [Header("Events")]
         public UnityEvent<GameObject> OnItemPlaced;
         public UnityEvent OnToolActionTriggered;
@@ -61,7 +68,34 @@ namespace MoskowGameJam.ToolInteraction
         public string ExitPromptText => exitPromptText;
         public Sprite ExitPromptSprite => exitPromptSprite;
         public List<GameObject> PlacedObjectsList => placedObjectsList;
+        public List<float> InteractionScores => interactionScores;
+        public float FinalAverageScore => finalAverageScore;
         public IToolMiniGameInteraction SpecificInteraction => miniGameInteraction;
+
+        public void AddScore(float score)
+        {
+            interactionScores.Add(score);
+            RecalculateAverageScore();
+            Debug.Log($"<color=green>[ToolInteractable] Nilai baru ditambahkan ke {gameObject.name}: {score:F2} | Rata-rata Nilai Akhir: {finalAverageScore:F2} (Total data: {interactionScores.Count})</color>");
+        }
+
+        public float RecalculateAverageScore()
+        {
+            if (interactionScores == null || interactionScores.Count == 0)
+            {
+                finalAverageScore = 0f;
+                return 0f;
+            }
+
+            float sum = 0f;
+            foreach (float s in interactionScores)
+            {
+                sum += s;
+            }
+
+            finalAverageScore = sum / interactionScores.Count;
+            return finalAverageScore;
+        }
 
         public string GetFormattedActionPrompt(KeyCode key) => PromptKeyFormatter.FormatPromptText(key, actionPromptText);
         public string GetFormattedPlacingPrompt(KeyCode key) => PromptKeyFormatter.FormatPromptText(key, placingPromptText);
@@ -107,6 +141,13 @@ namespace MoskowGameJam.ToolInteraction
 
         public void SetCameraActive(bool active)
         {
+            EnsureToolCameraExists();
+
+            if (toolCinemachineCamera != null)
+            {
+                toolCinemachineCamera.SetActive(true);
+            }
+
             int targetPriority = active ? activePriority : inactivePriority;
             SetCinemachinePriority(targetPriority);
 
@@ -120,6 +161,32 @@ namespace MoskowGameJam.ToolInteraction
                 OnInteractionExit?.Invoke();
                 miniGameInteraction?.OnEndInteraction();
             }
+        }
+
+        private void EnsureToolCameraExists()
+        {
+            if (toolCinemachineCamera != null) return;
+
+            Transform existingCam = transform.Find("[ToolCinemachineCamera]");
+            if (existingCam != null)
+            {
+                toolCinemachineCamera = existingCam.gameObject;
+                return;
+            }
+
+            GameObject vcamObj = new GameObject("[ToolCinemachineCamera]");
+            vcamObj.transform.SetParent(transform, false);
+            vcamObj.transform.localPosition = new Vector3(0f, 0.5f, -1.5f);
+            vcamObj.transform.localRotation = Quaternion.Euler(15f, 0f, 0f);
+
+#if UNITY_2023_1_OR_NEWER
+            var vcam = vcamObj.AddComponent<Unity.Cinemachine.CinemachineCamera>();
+            vcam.Priority.Value = inactivePriority;
+#else
+            Component vcam = vcamObj.AddComponent(System.Type.GetType("Cinemachine.CinemachineVirtualCamera, Unity.Cinemachine") ?? System.Type.GetType("Cinemachine.CinemachineVirtualCamera, Cinemachine"));
+#endif
+
+            toolCinemachineCamera = vcamObj;
         }
 
         public bool AddItemToTool(GameObject item)
@@ -176,7 +243,9 @@ namespace MoskowGameJam.ToolInteraction
             var cinemachineCam = toolCinemachineCamera.GetComponent<CinemachineCamera>();
             if (cinemachineCam != null)
             {
+                cinemachineCam.Priority.Enabled = true;
                 cinemachineCam.Priority.Value = priority;
+                Debug.Log($"<color=cyan>[ToolInteractable] Set CinemachineCamera priority pada {toolCinemachineCamera.name} ke {priority}</color>");
                 return;
             }
 #endif
@@ -190,8 +259,33 @@ namespace MoskowGameJam.ToolInteraction
                 var priorityProp = vcam.GetType().GetProperty("Priority");
                 if (priorityProp != null)
                 {
-                    priorityProp.SetValue(vcam, priority);
+                    if (priorityProp.PropertyType == typeof(int))
+                    {
+                        priorityProp.SetValue(vcam, priority);
+                    }
+                    else
+                    {
+                        var prioObj = priorityProp.GetValue(vcam);
+                        if (prioObj != null)
+                        {
+                            var enabledProp = prioObj.GetType().GetProperty("Enabled");
+                            if (enabledProp != null) enabledProp.SetValue(prioObj, true);
+
+                            var valProp = prioObj.GetType().GetProperty("Value");
+                            if (valProp != null) valProp.SetValue(prioObj, priority);
+
+                            var valField = prioObj.GetType().GetField("Value");
+                            if (valField != null) valField.SetValue(prioObj, priority);
+
+                            priorityProp.SetValue(vcam, prioObj);
+                        }
+                    }
                 }
+                Debug.Log($"<color=cyan>[ToolInteractable] Set reflection camera priority pada {toolCinemachineCamera.name} ke {priority}</color>");
+            }
+            else
+            {
+                Debug.LogWarning($"[ToolInteractable] Tidak ditemukan komponen CinemachineCamera atau CinemachineVirtualCamera di {toolCinemachineCamera.name}");
             }
         }
     }

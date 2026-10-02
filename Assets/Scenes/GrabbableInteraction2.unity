@@ -620,7 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.ToolInteraction.ToolInteractable
   toolCinemachineCamera: {fileID: 271026913}
-  activePriority: 20
+  activePriority: 100
   inactivePriority: 0
   glowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   glowIntensity: 1.5
@@ -1638,7 +1638,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdd9654760671804381f3d0252f8b4ea, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.PlayerGrabbableInteraction
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.PlayerObjectInteraction
   playerCamera: {fileID: 0}
   playerTransform: {fileID: 999235644}
   holdOffsetPosition: {x: 0.5, y: -0.53, z: 1.5}
