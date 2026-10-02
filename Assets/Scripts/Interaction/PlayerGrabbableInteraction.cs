@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Rendering.Universal;
 
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
+
+using MoskowGameJam.Settings;
 
 namespace MoskowGameJam.Interaction
 {
@@ -27,10 +30,30 @@ namespace MoskowGameJam.Interaction
         [Tooltip("Transform tempat menyimpan objek (Opsional: Jika kosong akan dibuat otomatis secara realtime)")]
         [SerializeField] private Transform grabHoldTransform;
 
+        [Header("Overlay Camera & Layer Settings")]
+        [Tooltip("Nama layer khusus untuk objek yang sedang di-grab (Default: HeldObject)")]
+        [SerializeField] private string heldObjectLayerName = "HeldObject";
+
+        [Tooltip("Otomatis buat & konfigurasi Overlay Camera untuk render objek grab paling depan")]
+        [SerializeField] private bool autoSetupOverlayCamera = true;
+
         [Header("Interaction Settings")]
         [SerializeField] private float interactDistance = 3.5f;
         [SerializeField] private LayerMask interactableLayer = ~0;
         [SerializeField] private KeyCode interactKey = KeyCode.E;
+
+        [Header("Drop Settings")]
+        [Tooltip("Jarak maksimal Raycast untuk menempatkan objek saat di-drop")]
+        [SerializeField] private float maxDropDistance = 4.0f;
+
+        [Tooltip("Layer mask permukaan yang valid untuk menampung objek yang di-drop")]
+        [SerializeField] private LayerMask dropSurfaceLayer = ~0;
+
+        [Tooltip("Offset elevasi dari titik benturan permukaan agar collider tidak tembus permukaan")]
+        [SerializeField] private Vector3 dropSurfaceOffset = new Vector3(0f, 0.05f, 0f);
+
+        [Tooltip("Aktifkan fitur penempatan permukaan via Raycast saat di-drop")]
+        [SerializeField] private bool enableRayBasedDrop = true;
 
         [Header("UI Prompt References")]
         [Tooltip("Root Canvas UI Panel untuk menampung Sprite dan Teks")]
@@ -44,11 +67,37 @@ namespace MoskowGameJam.Interaction
 
         private Grabbable currentTarget;
         private Grabbable heldObject;
+        private Camera heldOverlayCamera;
+        private int heldLayerIndex = -1;
 
         private void Awake()
         {
             AutoAssignReferences();
             EnsureGrabHoldTransform();
+        }
+
+        private void OnEnable()
+        {
+            InteractionSettingsManager.OnSettingsChanged += ApplySettingsData;
+            if (InteractionSettingsManager.Instance != null)
+            {
+                ApplySettingsData(InteractionSettingsManager.Instance.CurrentData);
+            }
+        }
+
+        private void OnDisable()
+        {
+            InteractionSettingsManager.OnSettingsChanged -= ApplySettingsData;
+        }
+
+        private void ApplySettingsData(InteractionSaveData data)
+        {
+            if (data == null) return;
+
+            interactKey = data.interactKey;
+            interactDistance = data.interactDistance;
+            maxDropDistance = data.maxDropDistance;
+            enableRayBasedDrop = data.enableRayBasedDrop;
         }
 
         private void Start()
@@ -101,6 +150,8 @@ namespace MoskowGameJam.Interaction
                 return;
             }
 
+            SetupHeldLayerAndCamera();
+
             if (grabHoldTransform == null)
             {
                 Transform existingHold = playerCamera.transform.Find("[GrabHoldPoint]");
@@ -134,6 +185,77 @@ namespace MoskowGameJam.Interaction
             grabHoldTransform.localEulerAngles = holdOffsetRotation;
         }
 
+        private void SetupHeldLayerAndCamera()
+        {
+            if (playerCamera == null) return;
+
+            heldLayerIndex = LayerMask.NameToLayer(heldObjectLayerName);
+            if (heldLayerIndex < 0)
+            {
+                heldLayerIndex = 6; // Fallback to Layer 6
+            }
+
+            // Main camera tidak merender heldLayerIndex
+            playerCamera.cullingMask &= ~(1 << heldLayerIndex);
+
+            if (!autoSetupOverlayCamera) return;
+
+            Transform overlayCamTransform = playerCamera.transform.Find("[HeldOverlayCamera]");
+            if (overlayCamTransform == null)
+            {
+                GameObject camObj = new GameObject("[HeldOverlayCamera]");
+                camObj.transform.SetParent(playerCamera.transform, false);
+                camObj.transform.localPosition = Vector3.zero;
+                camObj.transform.localRotation = Quaternion.identity;
+                camObj.transform.localScale = Vector3.one;
+                overlayCamTransform = camObj.transform;
+            }
+
+            heldOverlayCamera = overlayCamTransform.GetComponent<Camera>();
+            if (heldOverlayCamera == null)
+            {
+                heldOverlayCamera = overlayCamTransform.gameObject.AddComponent<Camera>();
+            }
+
+            heldOverlayCamera.clearFlags = CameraClearFlags.Depth;
+            heldOverlayCamera.backgroundColor = new Color(0f, 0f, 0f, 0f);
+            heldOverlayCamera.cullingMask = 1 << heldLayerIndex;
+            heldOverlayCamera.depth = playerCamera.depth + 1;
+            heldOverlayCamera.fieldOfView = playerCamera.fieldOfView;
+            heldOverlayCamera.nearClipPlane = playerCamera.nearClipPlane;
+            heldOverlayCamera.farClipPlane = playerCamera.farClipPlane;
+            heldOverlayCamera.orthographic = playerCamera.orthographic;
+            heldOverlayCamera.orthographicSize = playerCamera.orthographicSize;
+            heldOverlayCamera.allowHDR = playerCamera.allowHDR;
+            heldOverlayCamera.allowMSAA = playerCamera.allowMSAA;
+
+            SetupURPCameraStacking(playerCamera, heldOverlayCamera);
+        }
+
+        private void SetupURPCameraStacking(Camera mainCam, Camera overlayCam)
+        {
+            if (mainCam == null || overlayCam == null) return;
+
+            var mainCamData = mainCam.GetComponent<UniversalAdditionalCameraData>();
+            if (mainCamData == null)
+            {
+                mainCamData = mainCam.gameObject.AddComponent<UniversalAdditionalCameraData>();
+            }
+            mainCamData.renderType = CameraRenderType.Base;
+
+            var overlayCamData = overlayCam.GetComponent<UniversalAdditionalCameraData>();
+            if (overlayCamData == null)
+            {
+                overlayCamData = overlayCam.gameObject.AddComponent<UniversalAdditionalCameraData>();
+            }
+            overlayCamData.renderType = CameraRenderType.Overlay;
+
+            if (!mainCamData.cameraStack.Contains(overlayCam))
+            {
+                mainCamData.cameraStack.Add(overlayCam);
+            }
+        }
+
         private void Update()
         {
             if (playerCamera == null || grabHoldTransform == null || grabHoldTransform.parent != playerCamera.transform)
@@ -144,6 +266,16 @@ namespace MoskowGameJam.Interaction
 
             HandleRaycast();
             HandleInput();
+        }
+
+        private void LateUpdate()
+        {
+            if (heldOverlayCamera != null && playerCamera != null)
+            {
+                heldOverlayCamera.fieldOfView = playerCamera.fieldOfView;
+                heldOverlayCamera.nearClipPlane = playerCamera.nearClipPlane;
+                heldOverlayCamera.farClipPlane = playerCamera.farClipPlane;
+            }
         }
 
         private void HandleRaycast()
@@ -244,18 +376,41 @@ namespace MoskowGameJam.Interaction
             }
 
             heldObject = target;
-            heldObject.Grab(grabHoldTransform);
+            heldObject.Grab(grabHoldTransform, heldLayerIndex);
             ClearCurrentTarget();
         }
 
         private void DropObject()
         {
-            if (heldObject != null)
+            if (heldObject == null) return;
+
+            // Lakukan Raycast dari Kamera ke depan untuk mencari permukaan penempatan objek
+            Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+            // Matikan sementara collider objek yang dipegang agar Raycast tidak membentur objek itu sendiri
+            Collider heldCollider = heldObject.GetComponent<Collider>();
+            bool wasColliderEnabled = false;
+            if (heldCollider != null)
             {
-                heldObject.Drop();
-                heldObject = null;
-                HideUIPrompt();
+                wasColliderEnabled = heldCollider.enabled;
+                heldCollider.enabled = false;
             }
+
+            if (enableRayBasedDrop && Physics.Raycast(ray, out RaycastHit hit, maxDropDistance, dropSurfaceLayer))
+            {
+                // Mengenai permukaan (meja/lantai/rak) -> Pindahkan posisi ke titik benturan + offset
+                heldObject.transform.position = hit.point + (hit.normal * 0.02f) + dropSurfaceOffset;
+            }
+            // Jika tidak mengenai permukaan apapun -> Tetap pada posisi grabHoldTransform (Drop Biasa)
+
+            if (heldCollider != null)
+            {
+                heldCollider.enabled = wasColliderEnabled;
+            }
+
+            heldObject.Drop();
+            heldObject = null;
+            HideUIPrompt();
         }
 
         private void ShowUIPrompt(string promptMessage)

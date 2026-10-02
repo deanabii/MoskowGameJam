@@ -17,6 +17,8 @@ namespace MoskowGameJam.Editor
         [MenuItem("Tools/MoskowGameJam/Setup Grabbable Demo & Additive Loader")]
         public static void CreateDemoSetup()
         {
+            EnsureHeldObjectLayerExists();
+
             // 1. Ensure Directories exist
             if (!Directory.Exists("Assets/Settings"))
             {
@@ -137,6 +139,39 @@ namespace MoskowGameJam.Editor
             AssetDatabase.Refresh();
 
             Debug.Log("<color=green>[SetupGrabbableDemo] Scene Utama (MainBootstrapScene) dan Scene Interaksi (GrabbableInteractionScene) berhasil dibuat & dikonfigurasi!</color>");
+        }
+
+        private static void EnsureHeldObjectLayerExists()
+        {
+            UnityEngine.Object[] assets = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset");
+            if (assets == null || assets.Length == 0) return;
+
+            SerializedObject tagManager = new SerializedObject(assets[0]);
+            SerializedProperty layersProp = tagManager.FindProperty("layers");
+            if (layersProp == null || !layersProp.isArray) return;
+
+            string targetLayerName = "HeldObject";
+
+            for (int i = 0; i < layersProp.arraySize; i++)
+            {
+                SerializedProperty layerElem = layersProp.GetArrayElementAtIndex(i);
+                if (layerElem.stringValue == targetLayerName)
+                {
+                    return; // Layer already exists
+                }
+            }
+
+            for (int i = 6; i < layersProp.arraySize; i++)
+            {
+                SerializedProperty layerElem = layersProp.GetArrayElementAtIndex(i);
+                if (string.IsNullOrEmpty(layerElem.stringValue))
+                {
+                    layerElem.stringValue = targetLayerName;
+                    tagManager.ApplyModifiedProperties();
+                    Debug.Log($"[SetupGrabbableDemo] Layer '{targetLayerName}' berhasil ditambahkan pada index {i}.");
+                    return;
+                }
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MoskowGameJam.Interaction
@@ -18,6 +19,8 @@ namespace MoskowGameJam.Interaction
         private Collider col;
         private bool isHighlighted;
         private bool isHeld;
+
+        private readonly Dictionary<Transform, int> originalLayers = new Dictionary<Transform, int>();
 
         public string GrabPromptText => grabPromptText;
         public bool IsHeld => isHeld;
@@ -67,8 +70,17 @@ namespace MoskowGameJam.Interaction
 
         public void Grab(Transform holdPoint)
         {
+            int defaultHeldLayer = LayerMask.NameToLayer("HeldObject");
+            if (defaultHeldLayer < 0) defaultHeldLayer = 6; // Layer 6 fallback
+            Grab(holdPoint, defaultHeldLayer);
+        }
+
+        public void Grab(Transform holdPoint, int heldLayer)
+        {
             SetHighlighted(false);
             isHeld = true;
+
+            SaveAndSetHeldLayer(heldLayer);
 
             if (rb != null)
             {
@@ -91,6 +103,8 @@ namespace MoskowGameJam.Interaction
             isHeld = false;
             transform.SetParent(null);
 
+            RestoreOriginalLayers();
+
             if (rb != null)
             {
                 rb.isKinematic = false;
@@ -101,6 +115,39 @@ namespace MoskowGameJam.Interaction
             {
                 col.enabled = true;
             }
+        }
+
+        private void SaveAndSetHeldLayer(int heldLayer)
+        {
+            if (heldLayer < 0) return;
+
+            originalLayers.Clear();
+            SaveAndSetLayerRecursive(transform, heldLayer);
+        }
+
+        private void SaveAndSetLayerRecursive(Transform t, int heldLayer)
+        {
+            if (t == null) return;
+
+            originalLayers[t] = t.gameObject.layer;
+            t.gameObject.layer = heldLayer;
+
+            for (int i = 0; i < t.childCount; i++)
+            {
+                SaveAndSetLayerRecursive(t.GetChild(i), heldLayer);
+            }
+        }
+
+        private void RestoreOriginalLayers()
+        {
+            foreach (var kvp in originalLayers)
+            {
+                if (kvp.Key != null)
+                {
+                    kvp.Key.gameObject.layer = kvp.Value;
+                }
+            }
+            originalLayers.Clear();
         }
     }
 }
