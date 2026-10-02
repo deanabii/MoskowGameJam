@@ -47,6 +47,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Pancake
+    second: {fileID: 2100000, guid: 0b10c0fff470d8148a950510f756f661, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_Pavement
     second: {fileID: 2100000, guid: 56bcb86bf383c104fa4eedcfc595c087, type: 2}
   - first:
@@ -87,6 +92,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 4cc8df8903b733841811d8b24fae0305, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Material.007
     second: {fileID: 2100000, guid: a7da201d2587c24438dafdb1e32beb1f, type: 2}
   - first:
@@ -124,6 +134,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Material.016
     second: {fileID: 2100000, guid: 44fe8fe4af28d6a4897394e6336b4965, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pancake
+    second: {fileID: 2100000, guid: b235d7e5cd281b84ba76f550ae2704c6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
