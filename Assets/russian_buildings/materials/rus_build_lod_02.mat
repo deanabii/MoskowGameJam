@@ -8,33 +8,19 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: rus_build_lod_02
-<<<<<<< Updated upstream
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _SPECGLOSSMAP
-=======
   m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
->>>>>>> Stashed changes
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-<<<<<<< Updated upstream
-  stringTagMap: {}
-  disabledShaderPasses: []
-=======
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
->>>>>>> Stashed changes
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -120,8 +106,6 @@ Material:
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
-<<<<<<< Updated upstream
-=======
 --- !u!114 &4510090224793142647
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -135,4 +119,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
   version: 10
->>>>>>> Stashed changes

@@ -41,6 +41,7 @@ namespace MoskowGameJam.NPC
         public string[] DialogueLines => dialogueLines;
         public float InteractDistance => interactDistance;
         public bool IsInteracting => isInteracting;
+        public UnityEvent OnDialogueFinishedEvent => onDialogueFinished;
 
         public static event Action<NPCInteractable, Transform> OnInteractionRequested;
         public static event Action<NPCInteractable> OnInteractionClosed;

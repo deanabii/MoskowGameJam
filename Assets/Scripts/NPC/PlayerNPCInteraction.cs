@@ -47,8 +47,9 @@ namespace MoskowGameJam.NPC
 
         private void Update()
         {
-            // Jika jendela dialog sedang aktif terbuka, sembunyikan prompt
-            if (NPCDialogueUI.Instance != null && NPCDialogueUI.Instance.IsDialogueActive)
+            // Jika jendela dialog atau popup resep sedang terbuka, sembunyikan prompt
+            if ((NPCDialogueUI.Instance != null && NPCDialogueUI.Instance.IsDialogueActive) ||
+                (RecipePopupUI.Instance != null && RecipePopupUI.Instance.IsOpen))
             {
                 HidePrompt();
                 targetNPC = null;

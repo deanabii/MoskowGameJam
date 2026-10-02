@@ -30,7 +30,7 @@ namespace MoskowGameJam.NPC
         [SerializeField] private float typingSpeed = 0.03f;
 
         [Tooltip("Tombol keyboard untuk melanjutkan dialog")]
-        [SerializeField] private KeyCode continueKey = KeyCode.E;
+        [SerializeField] private KeyCode continueKey = KeyCode.Space;
 
         private NPCInteractable activeNPC;
         private string[] activeLines;
@@ -53,9 +53,32 @@ namespace MoskowGameJam.NPC
                 return;
             }
 
+            AutoResolveReferences();
+
             if (dialoguePanel != null)
             {
                 dialoguePanel.SetActive(false);
+            }
+        }
+
+        private void AutoResolveReferences()
+        {
+            if (dialoguePanel == null)
+            {
+                Transform panelTr = transform.Find("DialogueBoxPanel");
+                if (panelTr != null) dialoguePanel = panelTr.gameObject;
+            }
+
+            TMP_Text[] allTexts = GetComponentsInChildren<TMP_Text>(true);
+            foreach (var t in allTexts)
+            {
+                string lower = t.gameObject.name.ToLower();
+                if (nameText == null && (lower.Contains("name") || lower.Contains("nama")))
+                    nameText = t;
+                else if (dialogueText == null && (lower.Contains("dialogue") || lower.Contains("dialog") || lower.Contains("text") || lower.Contains("subtitle")))
+                    dialogueText = t;
+                else if (continueHintText == null && (lower.Contains("hint") || lower.Contains("continue") || lower.Contains("lanjut")))
+                    continueHintText = t;
             }
         }
 
@@ -84,13 +107,14 @@ namespace MoskowGameJam.NPC
 #if ENABLE_INPUT_SYSTEM
             if (Keyboard.current != null)
             {
-                if (System.Enum.TryParse(continueKey.ToString(), out Key key))
-                {
-                    if (key != Key.None && Keyboard.current[key].wasPressedThisFrame) return true;
-                }
                 if (Keyboard.current.spaceKey.wasPressedThisFrame || Keyboard.current.enterKey.wasPressedThisFrame)
                 {
                     return true;
+                }
+                if (continueKey != KeyCode.None && continueKey != KeyCode.E &&
+                    System.Enum.TryParse(continueKey.ToString(), out Key key))
+                {
+                    if (key != Key.None && Keyboard.current[key].wasPressedThisFrame) return true;
                 }
             }
 #endif
@@ -98,7 +122,11 @@ namespace MoskowGameJam.NPC
 #if ENABLE_LEGACY_INPUT_MANAGER
             try
             {
-                if (Input.GetKeyDown(continueKey) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+                {
+                    return true;
+                }
+                if (continueKey != KeyCode.None && continueKey != KeyCode.E && Input.GetKeyDown(continueKey))
                 {
                     return true;
                 }
@@ -126,7 +154,7 @@ namespace MoskowGameJam.NPC
 
             if (continueHintText != null)
             {
-                continueHintText.text = "[E / Spasi] Lanjut";
+                continueHintText.text = "[Space] Lanjut";
             }
 
             if (dialoguePanel != null)
