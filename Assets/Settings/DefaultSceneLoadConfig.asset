@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 442aa707efca3584a827de003eec7567, type: 3}
-  m_Name: MainSceneLoader
+  m_Name: DefaultSceneLoadConfig
   m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.SceneManagement.SceneLoadConfig
   scenesToLoad:
-  - GrabbableInteraction
-  - PhotoModeUI
-  activeSceneName: MainGame
+  - GrabbableInteractionScene
+  activeSceneName: GrabbableInteractionScene
   loadAsynchronously: 1

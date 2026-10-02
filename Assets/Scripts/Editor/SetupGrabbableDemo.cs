@@ -59,43 +59,56 @@ namespace MoskowGameJam.Editor
                 mainCam.transform.localPosition = new Vector3(0, 1.6f, 0);
             }
 
-            // Create UI Prompt Canvas
+            // Create Horizontal UI Prompt Canvas
             GameObject canvasObj = new GameObject("InteractionCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             Canvas canvas = canvasObj.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
-            GameObject promptPanel = new GameObject("UIPromptPanel", typeof(RectTransform), typeof(Image));
-            promptPanel.transform.SetParent(canvasObj.transform, false);
-            RectTransform panelRect = promptPanel.GetComponent<RectTransform>();
-            panelRect.sizeDelta = new Vector2(200, 50);
-            panelRect.anchoredPosition = new Vector2(0, -150);
-            Image panelImg = promptPanel.GetComponent<Image>();
-            panelImg.color = new Color(0, 0, 0, 0.7f);
+            GameObject promptContainer = new GameObject("HorizontalPromptContainer", typeof(RectTransform), typeof(HorizontalLayoutGroup), typeof(ContentSizeFitter));
+            promptContainer.transform.SetParent(canvasObj.transform, false);
+            
+            RectTransform containerRect = promptContainer.GetComponent<RectTransform>();
+            containerRect.anchoredPosition = new Vector2(0, -150);
+            
+            HorizontalLayoutGroup hGroup = promptContainer.GetComponent<HorizontalLayoutGroup>();
+            hGroup.spacing = 15f;
+            hGroup.childAlignment = TextAnchor.MiddleCenter;
+            hGroup.childControlWidth = false;
+            hGroup.childControlHeight = false;
+            hGroup.childForceExpandWidth = false;
+            hGroup.childForceExpandHeight = false;
 
-            GameObject textObj = new GameObject("PromptText", typeof(RectTransform), typeof(TextMeshProUGUI));
-            textObj.transform.SetParent(promptPanel.transform, false);
-            TextMeshProUGUI promptText = textObj.GetComponent<TextMeshProUGUI>();
-            promptText.text = "[E] Ambil";
-            promptText.alignment = TextAlignmentOptions.Center;
-            promptText.color = Color.white;
-            promptText.fontSize = 20;
+            ContentSizeFitter csFitter = promptContainer.GetComponent<ContentSizeFitter>();
+            csFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+            csFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            RectTransform textRect = textObj.GetComponent<RectTransform>();
-            textRect.anchorMin = Vector2.zero;
-            textRect.anchorMax = Vector2.one;
-            textRect.sizeDelta = Vector2.zero;
+            // 1. Grab Prompt Panel
+            GameObject grabPanel = CreatePromptSubPanel(promptContainer.transform, "GrabPromptPanel", "[E] Ambil");
+            TMP_Text grabText = grabPanel.GetComponentInChildren<TMP_Text>();
+
+            // 2. Interact Prompt Panel
+            GameObject interactPanel = CreatePromptSubPanel(promptContainer.transform, "InteractPromptPanel", "[F] Gunakan");
+            TMP_Text interactText = interactPanel.GetComponentInChildren<TMP_Text>();
+
+            // 3. Insert Prompt Panel
+            GameObject insertPanel = CreatePromptSubPanel(promptContainer.transform, "InsertPromptPanel", "[Q] Masukkan");
+            TMP_Text insertText = insertPanel.GetComponentInChildren<TMP_Text>();
 
             // Create Interaction Manager Component
-            GameObject interactionManager = new GameObject("PlayerGrabbableInteraction");
-            PlayerGrabbableInteraction interaction = interactionManager.AddComponent<PlayerGrabbableInteraction>();
+            GameObject interactionManager = new GameObject("PlayerObjectInteraction");
+            PlayerObjectInteraction interaction = interactionManager.AddComponent<PlayerObjectInteraction>();
             
             // Assign fields via SerializedObject
             SerializedObject interactionSO = new SerializedObject(interaction);
             interactionSO.FindProperty("playerCamera").objectReferenceValue = mainCam;
             interactionSO.FindProperty("playerTransform").objectReferenceValue = playerObj.transform;
-            interactionSO.FindProperty("uiPromptPanel").objectReferenceValue = promptPanel;
-            interactionSO.FindProperty("uiPromptImage").objectReferenceValue = panelImg;
-            interactionSO.FindProperty("uiPromptText").objectReferenceValue = promptText;
+            interactionSO.FindProperty("promptContainer").objectReferenceValue = promptContainer;
+            interactionSO.FindProperty("grabPromptPanel").objectReferenceValue = grabPanel;
+            interactionSO.FindProperty("grabPromptText").objectReferenceValue = grabText;
+            interactionSO.FindProperty("interactPromptPanel").objectReferenceValue = interactPanel;
+            interactionSO.FindProperty("interactPromptText").objectReferenceValue = interactText;
+            interactionSO.FindProperty("insertPromptPanel").objectReferenceValue = insertPanel;
+            interactionSO.FindProperty("insertPromptText").objectReferenceValue = insertText;
             interactionSO.ApplyModifiedProperties();
             
             interaction.EnsureGrabHoldTransform();
@@ -103,15 +116,21 @@ namespace MoskowGameJam.Editor
             // Create Grabbable Demo Objects
             GameObject cubeObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cubeObj.name = "GrabbableCube";
-            cubeObj.transform.position = new Vector3(0, 0.5f, 3.0f);
+            cubeObj.transform.position = new Vector3(-1.0f, 0.5f, 3.0f);
             cubeObj.AddComponent<Rigidbody>();
             cubeObj.AddComponent<Grabbable>();
 
-            GameObject sphereObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            sphereObj.name = "GrabbableSphere";
-            sphereObj.transform.position = new Vector3(1.5f, 0.5f, 3.0f);
-            sphereObj.AddComponent<Rigidbody>();
-            sphereObj.AddComponent<Grabbable>();
+            // Create Tool Object (Menggunakan ToolInteractable Bawaan Proyek)
+            GameObject toolObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            toolObj.name = "ToolInteractableObject";
+            toolObj.transform.position = new Vector3(0.5f, 0.5f, 3.0f);
+            toolObj.transform.localScale = new Vector3(0.2f, 0.5f, 0.2f);
+            var toolComp = toolObj.AddComponent<MoskowGameJam.ToolInteraction.ToolInteractable>();
+            
+            SerializedObject toolSO = new SerializedObject(toolComp);
+            toolSO.FindProperty("actionPromptText").stringValue = "Aduk Adonan";
+            toolSO.FindProperty("placingPromptText").stringValue = "Masukkan ke Adonan";
+            toolSO.ApplyModifiedProperties();
 
             EditorSceneManager.SaveScene(interactionScene, interactionScenePath);
 
@@ -172,6 +191,34 @@ namespace MoskowGameJam.Editor
                     return;
                 }
             }
+        }
+
+        private static GameObject CreatePromptSubPanel(Transform parent, string objectName, string defaultText)
+        {
+            GameObject panel = new GameObject(objectName, typeof(RectTransform), typeof(Image));
+            panel.transform.SetParent(parent, false);
+
+            RectTransform panelRect = panel.GetComponent<RectTransform>();
+            panelRect.sizeDelta = new Vector2(160, 45);
+
+            Image img = panel.GetComponent<Image>();
+            img.color = new Color(0, 0, 0, 0.75f);
+
+            GameObject textObj = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
+            textObj.transform.SetParent(panel.transform, false);
+
+            TextMeshProUGUI tmpText = textObj.GetComponent<TextMeshProUGUI>();
+            tmpText.text = defaultText;
+            tmpText.alignment = TextAlignmentOptions.Center;
+            tmpText.color = Color.white;
+            tmpText.fontSize = 18;
+
+            RectTransform textRect = textObj.GetComponent<RectTransform>();
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.sizeDelta = Vector2.zero;
+
+            return panel;
         }
     }
 }

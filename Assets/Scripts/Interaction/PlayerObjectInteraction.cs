@@ -11,7 +11,7 @@ using MoskowGameJam.Settings;
 
 namespace MoskowGameJam.Interaction
 {
-    public class PlayerGrabbableInteraction : MonoBehaviour
+    public class PlayerObjectInteraction : MonoBehaviour
     {
         [Header("References")]
         [Tooltip("Kamera player. Jika kosong, akan otomatis mengambil Camera.main")]
@@ -55,7 +55,25 @@ namespace MoskowGameJam.Interaction
         [Tooltip("Aktifkan fitur penempatan permukaan via Raycast saat di-drop")]
         [SerializeField] private bool enableRayBasedDrop = true;
 
-        [Header("UI Prompt References")]
+        [Header("Multi-Prompt UI References (Horizontal Layout)")]
+        [Tooltip("Root Container dengan Horizontal Layout Group")]
+        [SerializeField] private GameObject promptContainer;
+
+        [Header("Ambil (Grab) Prompt")]
+        [SerializeField] private GameObject grabPromptPanel;
+        [SerializeField] private TMP_Text grabPromptText;
+
+        [Header("Interaksi (Tool) Prompt")]
+        [SerializeField] private GameObject interactPromptPanel;
+        [SerializeField] private TMP_Text interactPromptText;
+        [SerializeField] private KeyCode toolInteractKey = KeyCode.F;
+
+        [Header("Masukkan (Insert) Prompt")]
+        [SerializeField] private GameObject insertPromptPanel;
+        [SerializeField] private TMP_Text insertPromptText;
+        [SerializeField] private KeyCode insertKey = KeyCode.Q;
+
+        [Header("Legacy Single UI Prompt (Fallback)")]
         [Tooltip("Root Canvas UI Panel untuk menampung Sprite dan Teks")]
         [SerializeField] private GameObject uiPromptPanel;
 
@@ -67,11 +85,16 @@ namespace MoskowGameJam.Interaction
 
         private Grabbable currentTarget;
         private Grabbable heldObject;
+        private MoskowGameJam.ToolInteraction.ToolInteractable currentTool;
         private Camera heldOverlayCamera;
         private int heldLayerIndex = -1;
 
+        public static PlayerObjectInteraction Instance { get; private set; }
+        public Grabbable HeldObject => heldObject;
+
         private void Awake()
         {
+            if (Instance == null) Instance = this;
             AutoAssignReferences();
             EnsureGrabHoldTransform();
         }
@@ -278,44 +301,118 @@ namespace MoskowGameJam.Interaction
             }
         }
 
-        private void HandleRaycast()
+        public void ClearHeldObject()
         {
-            // Jika sedang memegang objek, tampilkan prompt lepas
             if (heldObject != null)
             {
-                if (currentTarget != null)
-                {
-                    currentTarget.SetHighlighted(false);
-                    currentTarget = null;
-                }
-                ShowUIPrompt("[E] Lepas");
+                heldObject = null;
+                HideUIPrompt();
+            }
+        }
+
+        private void HandleRaycast()
+        {
+            if (MoskowGameJam.ToolInteraction.PlayerToolInteraction.Instance != null &&
+                MoskowGameJam.ToolInteraction.PlayerToolInteraction.Instance.IsInteracting)
+            {
+                ClearCurrentTarget();
+                HideUIPrompt();
                 return;
             }
 
             Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+            // JIKA SEDANG MEMEGANG OBJEK
+            if (heldObject != null)
+            {
+                ClearCurrentTarget();
+
+                if (Physics.Raycast(ray, out RaycastHit hitTool, interactDistance, interactableLayer))
+                {
+                    var tool = hitTool.collider.GetComponentInParent<MoskowGameJam.ToolInteraction.ToolInteractable>();
+                    if (tool != null)
+                    {
+                        SetCurrentToolTarget(tool);
+                        string placingMsg = !string.IsNullOrEmpty(tool.PlacingPromptText) ? $"[Q] {tool.PlacingPromptText}" : "[Q] Masukkan ke alat";
+                        
+                        SetPromptsVisibility(
+                            showGrab: false, grabMsg: "",
+                            showInteract: false, interactMsg: "",
+                            showInsert: true, insertMsg: placingMsg
+                        );
+                        return;
+                    }
+                }
+
+                SetCurrentToolTarget(null);
+                SetPromptsVisibility(
+                    showGrab: true, grabMsg: "[E] Lepas",
+                    showInteract: false, interactMsg: "",
+                    showInsert: false, insertMsg: ""
+                );
+                return;
+            }
+
+            // JIKA TANGAN KOSONG
             if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactableLayer))
             {
                 Grabbable grabbable = hit.collider.GetComponentInParent<Grabbable>();
-                if (grabbable != null && !grabbable.IsHeld)
+                var tool = hit.collider.GetComponentInParent<MoskowGameJam.ToolInteraction.ToolInteractable>();
+
+                if (grabbable != null || tool != null)
                 {
-                    if (currentTarget != grabbable)
+                    if (grabbable != null && !grabbable.IsHeld)
                     {
-                        ClearCurrentTarget();
-                        currentTarget = grabbable;
-                        currentTarget.SetHighlighted(true);
+                        if (currentTarget != grabbable)
+                        {
+                            ClearCurrentGrabbableTarget();
+                            currentTarget = grabbable;
+                            currentTarget.SetHighlighted(true);
+                        }
+                    }
+                    else
+                    {
+                        ClearCurrentGrabbableTarget();
                     }
 
-                    ShowUIPrompt(currentTarget.GrabPromptText);
+                    SetCurrentToolTarget(tool);
+
+                    bool showGrab = (currentTarget != null);
+                    string grabMsg = showGrab ? currentTarget.GrabPromptText : "";
+
+                    bool showInteract = (currentTool != null && !string.IsNullOrEmpty(currentTool.ActionPromptText));
+                    string interactMsg = showInteract ? $"[F] {currentTool.ActionPromptText}" : "";
+
+                    SetPromptsVisibility(
+                        showGrab: showGrab, grabMsg: grabMsg,
+                        showInteract: showInteract, interactMsg: interactMsg,
+                        showInsert: false, insertMsg: "" // Sembunyikan Masukkan saat tangan kosong
+                    );
                     return;
                 }
             }
 
-            // Jika raycast tidak mengenai Grabbable
             ClearCurrentTarget();
             HideUIPrompt();
         }
 
-        private void ClearCurrentTarget()
+        private void SetCurrentToolTarget(MoskowGameJam.ToolInteraction.ToolInteractable tool)
+        {
+            if (currentTool != tool)
+            {
+                if (currentTool != null)
+                {
+                    currentTool.SetGlow(false);
+                }
+                currentTool = tool;
+                if (currentTool != null)
+                {
+                    currentTool.SetGlow(true);
+                }
+            }
+        }
+
+        private void ClearCurrentGrabbableTarget()
         {
             if (currentTarget != null)
             {
@@ -324,9 +421,22 @@ namespace MoskowGameJam.Interaction
             }
         }
 
+        private void ClearCurrentTarget()
+        {
+            ClearCurrentGrabbableTarget();
+            SetCurrentToolTarget(null);
+        }
+
         private void HandleInput()
         {
-            if (IsInteractKeyPressed())
+            if (MoskowGameJam.ToolInteraction.PlayerToolInteraction.Instance != null &&
+                MoskowGameJam.ToolInteraction.PlayerToolInteraction.Instance.IsInteracting)
+            {
+                return;
+            }
+
+            // Input Ambil / Drop ([E])
+            if (IsKeyPressed(interactKey))
             {
                 if (heldObject != null)
                 {
@@ -337,14 +447,37 @@ namespace MoskowGameJam.Interaction
                     GrabObject(currentTarget);
                 }
             }
+
+            // Input Interaksi Tool ([F])
+            if (IsKeyPressed(toolInteractKey))
+            {
+                if (heldObject == null && currentTool != null)
+                {
+                    currentTool.TriggerAction();
+                }
+            }
+
+            // Input Masukkan ke Tool Container ([Q])
+            if (IsKeyPressed(insertKey))
+            {
+                if (heldObject != null && currentTool != null)
+                {
+                    GameObject itemObj = heldObject.gameObject;
+                    heldObject.Drop(); // Unparent
+                    heldObject = null;
+
+                    currentTool.AddItemToTool(itemObj);
+                    HideUIPrompt();
+                }
+            }
         }
 
-        private bool IsInteractKeyPressed()
+        private bool IsKeyPressed(KeyCode keyToCheck)
         {
 #if ENABLE_INPUT_SYSTEM
             if (Keyboard.current != null)
             {
-                if (System.Enum.TryParse(interactKey.ToString(), out Key key))
+                if (System.Enum.TryParse(keyToCheck.ToString(), out Key key))
                 {
                     if (key != Key.None && Keyboard.current[key].wasPressedThisFrame)
                     {
@@ -357,7 +490,7 @@ namespace MoskowGameJam.Interaction
 #if ENABLE_LEGACY_INPUT_MANAGER
             try
             {
-                return Input.GetKeyDown(interactKey);
+                return Input.GetKeyDown(keyToCheck);
             }
             catch {}
 #endif
@@ -371,7 +504,7 @@ namespace MoskowGameJam.Interaction
 
             if (grabHoldTransform == null)
             {
-                Debug.LogWarning("[PlayerGrabbableInteraction] Gagal membuat grabHoldTransform secara realtime!", this);
+                Debug.LogWarning("[PlayerObjectInteraction] Gagal membuat grabHoldTransform secara realtime!", this);
                 return;
             }
 
@@ -401,7 +534,6 @@ namespace MoskowGameJam.Interaction
                 // Mengenai permukaan (meja/lantai/rak) -> Pindahkan posisi ke titik benturan + offset
                 heldObject.transform.position = hit.point + (hit.normal * 0.02f) + dropSurfaceOffset;
             }
-            // Jika tidak mengenai permukaan apapun -> Tetap pada posisi grabHoldTransform (Drop Biasa)
 
             if (heldCollider != null)
             {
@@ -413,25 +545,74 @@ namespace MoskowGameJam.Interaction
             HideUIPrompt();
         }
 
-        private void ShowUIPrompt(string promptMessage)
+        public void SetCustomPrompts(bool showAction, string actionText, bool showPlacing, string placingText)
         {
-            if (uiPromptPanel != null)
+            SetPromptsVisibility(
+                showGrab: showPlacing, grabMsg: placingText,
+                showInteract: showAction, interactMsg: actionText,
+                showInsert: false, insertMsg: ""
+            );
+        }
+
+        public void SetExitPrompt(string exitText)
+        {
+            SetPromptsVisibility(
+                showGrab: false, grabMsg: "",
+                showInteract: true, interactMsg: exitText,
+                showInsert: false, insertMsg: ""
+            );
+        }
+
+        public void ClearCustomPrompts()
+        {
+            HideUIPrompt();
+        }
+
+        public void SetPromptsVisibility(bool showGrab, string grabMsg, bool showInteract, string interactMsg, bool showInsert, string insertMsg)
+        {
+            if (grabPromptPanel != null)
             {
-                uiPromptPanel.SetActive(true);
+                grabPromptPanel.SetActive(showGrab);
+                if (showGrab && grabPromptText != null) grabPromptText.text = grabMsg;
             }
 
-            if (uiPromptText != null)
+            if (interactPromptPanel != null)
             {
-                uiPromptText.text = promptMessage;
+                interactPromptPanel.SetActive(showInteract);
+                if (showInteract && interactPromptText != null) interactPromptText.text = interactMsg;
             }
+
+            if (insertPromptPanel != null)
+            {
+                insertPromptPanel.SetActive(showInsert);
+                if (showInsert && insertPromptText != null) insertPromptText.text = insertMsg;
+            }
+
+            if (promptContainer != null)
+            {
+                promptContainer.SetActive(showGrab || showInteract || showInsert);
+            }
+
+            if (uiPromptPanel != null && promptContainer == null)
+            {
+                uiPromptPanel.SetActive(showGrab || showInteract || showInsert);
+                if (uiPromptText != null)
+                {
+                    if (showGrab) uiPromptText.text = grabMsg;
+                    else if (showInteract) uiPromptText.text = interactMsg;
+                    else if (showInsert) uiPromptText.text = insertMsg;
+                }
+            }
+        }
+
+        private void ShowUIPrompt(string promptMessage)
+        {
+            SetPromptsVisibility(true, promptMessage, false, "", false, "");
         }
 
         private void HideUIPrompt()
         {
-            if (uiPromptPanel != null)
-            {
-                uiPromptPanel.SetActive(false);
-            }
+            SetPromptsVisibility(false, "", false, "", false, "");
         }
     }
 }

@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainBootstrapScene.unity
-    guid: ef4a5b133e1b2c6438760a6b914001fb
-  - enabled: 1
-    path: Assets/Scenes/GrabbableInteraction.unity
-    guid: 4c1ce8051e483024889acd7deadd9a2d
-  - enabled: 1
     path: Assets/Scenes/MainGame.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/GrabbableInteraction.unity
+    guid: 9bb9171740c3e6549ab67786fa52c7ca
+  - enabled: 1
+    path: Assets/PhotoModeSystem/Scenes/PhotoModeUI.unity
+    guid: bf854dded8484764fa8935173859b756
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
