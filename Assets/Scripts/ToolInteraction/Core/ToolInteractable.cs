@@ -10,6 +10,17 @@ using Unity.Cinemachine;
 
 namespace MoskowGameJam.ToolInteraction
 {
+    [System.Serializable]
+    public class ToolTransformOutcome
+    {
+        [Tooltip("Prefab objek pengganti yang akan di-spawn (harus memiliki komponen ToolInteractable / GameObject)")]
+        public GameObject targetPrefab;
+
+        [Range(0f, 1f)]
+        [Tooltip("Persentase nilai minimum finalAverageScore (0.0 - 1.0) untuk mengganti ke prefab ini")]
+        public float minAverageScoreThreshold;
+    }
+
     public class ToolInteractable : MonoBehaviour
     {
         [Header("Cinemachine Camera Settings")]
@@ -58,11 +69,29 @@ namespace MoskowGameJam.ToolInteraction
         [Tooltip("Nilai akhir (rata-rata dari semua interactionScores)")]
         [SerializeField] private float finalAverageScore;
 
+        [Header("Prefab Transformation Settings")]
+        [Tooltip("Daftar opsi penggantian prefab berdasarkan kriteria minimum finalAverageScore")]
+        [SerializeField] private List<ToolTransformOutcome> transformOutcomes = new List<ToolTransformOutcome>();
+
+        [Header("Data Transfer Settings")]
+        [Tooltip("Apakah daftar placedObjectsList (isi wadah) akan di-transfer ke objek baru?")]
+        [SerializeField] private bool transferPlacedObjects = true;
+
+        [Tooltip("Apakah daftar interactionScores & finalAverageScore akan di-transfer ke objek baru?")]
+        [SerializeField] private bool transferInteractionScores = true;
+
+        [Header("Reset Object Settings")]
+        [Tooltip("Prefab baru yang akan menggantikan objek ini saat di-reset (opsional)")]
+        [SerializeField] private GameObject resetPrefab;
+
         [Header("Events")]
         public UnityEvent<GameObject> OnItemPlaced;
         public UnityEvent OnToolActionTriggered;
         public UnityEvent OnInteractionEnter;
         public UnityEvent OnInteractionExit;
+        public UnityEvent<GameObject> OnTransformed;
+        public UnityEvent OnResetObjectTriggered;
+        public UnityEvent<GameObject> OnResetObjectCompleted;
 
         private Renderer[] objectRenderers;
         private MaterialPropertyBlock propBlock;
@@ -79,6 +108,7 @@ namespace MoskowGameJam.ToolInteraction
         public List<GameObject> RequiredObjectsList => requiredObjectsList;
         public List<float> InteractionScores => interactionScores;
         public float FinalAverageScore => finalAverageScore;
+        public GameObject ResetPrefab => resetPrefab;
         public IToolMiniGameInteraction SpecificInteraction => miniGameInteraction;
 
         public void AddScore(float score)
@@ -210,6 +240,140 @@ namespace MoskowGameJam.ToolInteraction
                       $"(Matched={matchedCount}, RequiredTotal={reqTotal}, PlacedTotal={placedTotal}, Diff={diff}, Multiplier={quantityMismatchMultiplier})</color>");
 
             return ingredientScore;
+        }
+
+        /// <summary>
+        /// Evaluasi apakah finalAverageScore memenuhi kriteria penggantian prefab (transformOutcomes).
+        /// Jika memenuhi, instantiate prefab target di posisi objek ini, transfer data (placedObjectsList, interactionScores),
+        /// lalu hapus objek lama.
+        /// </summary>
+        public GameObject EvaluateTransformation()
+        {
+            if (transformOutcomes == null || transformOutcomes.Count == 0)
+            {
+                return null;
+            }
+
+            // Cari outcome dengan minAverageScoreThreshold tertinggi yang terpenuhi
+            ToolTransformOutcome selectedOutcome = null;
+            float highestThreshold = -1f;
+
+            foreach (var outcome in transformOutcomes)
+            {
+                if (outcome == null || outcome.targetPrefab == null) continue;
+
+                if (finalAverageScore >= outcome.minAverageScoreThreshold)
+                {
+                    if (outcome.minAverageScoreThreshold > highestThreshold)
+                    {
+                        highestThreshold = outcome.minAverageScoreThreshold;
+                        selectedOutcome = outcome;
+                    }
+                }
+            }
+
+            if (selectedOutcome == null || selectedOutcome.targetPrefab == null)
+            {
+                Debug.Log($"[ToolInteractable] Tidak ada kriteria prefab pengganti yang terpenuhi untuk {gameObject.name} (Final Average Score: {finalAverageScore:F2})");
+                return null;
+            }
+
+            // Instantiate prefab target di lokasi & rotasi yang sama
+            Transform currentTrans = transform;
+            GameObject newObj = Instantiate(selectedOutcome.targetPrefab, currentTrans.position, currentTrans.rotation, currentTrans.parent);
+            newObj.transform.localScale = currentTrans.localScale;
+
+            ToolInteractable newTool = newObj.GetComponent<ToolInteractable>();
+
+            if (newTool != null)
+            {
+                // 1. Transfer Placed Objects jika diaktifkan
+                if (transferPlacedObjects && placedObjectsList != null)
+                {
+                    List<GameObject> tempPlaced = new List<GameObject>(placedObjectsList);
+                    placedObjectsList.Clear();
+
+                    foreach (GameObject item in tempPlaced)
+                    {
+                        if (item != null)
+                        {
+                            newTool.AddItemToTool(item);
+                        }
+                    }
+                }
+
+                // 2. Transfer Interaction Scores & recalculate average jika diaktifkan
+                if (transferInteractionScores && interactionScores != null)
+                {
+                    foreach (float score in interactionScores)
+                    {
+                        newTool.AddScore(score);
+                    }
+                }
+
+                Debug.Log($"<color=cyan>[ToolInteractable] BERHASIL TRANSFORMASI: {gameObject.name} → {newObj.name} " +
+                          $"(Threshold Terpenuhi: {selectedOutcome.minAverageScoreThreshold * 100f:F0}%, Score: {finalAverageScore * 100f:F0}%)</color>");
+            }
+
+            OnTransformed?.Invoke(newObj);
+
+            // Destroy objek lama
+            Destroy(gameObject);
+
+            return newObj;
+        }
+
+        /// <summary>
+        /// Memicu pemicuan reset objek:
+        /// 1. Memanggil UnityEvent OnResetObjectTriggered (kustom event di Inspector).
+        /// 2. Hapus semua objek di placedObjectsList & clear list.
+        /// 3. Hapus semua skor di interactionScores & reset finalAverageScore = 0.
+        /// 4. Jika resetPrefab di-assign, ganti objek lama dengan resetPrefab baru di posisi/rotasi/scale yang sama.
+        /// </summary>
+        public GameObject ResetObject()
+        {
+            Debug.Log($"<color=yellow>[ToolInteractable] Memicu ResetObject pada {gameObject.name}</color>");
+
+            // 1. Eksekusi UnityEvent kustom sebelum mereset
+            OnResetObjectTriggered?.Invoke();
+
+            // 2. Hapus fisik GameObject dan clear isi placedObjectsList
+            if (placedObjectsList != null)
+            {
+                foreach (GameObject item in placedObjectsList)
+                {
+                    if (item != null)
+                    {
+                        Destroy(item);
+                    }
+                }
+                placedObjectsList.Clear();
+            }
+
+            // 3. Hapus seluruh interactionScores & reset finalAverageScore
+            if (interactionScores != null)
+            {
+                interactionScores.Clear();
+            }
+            finalAverageScore = 0f;
+
+            // 4. Penggantian Prefab jika resetPrefab di-assign
+            if (resetPrefab != null)
+            {
+                Transform currentTrans = transform;
+                GameObject newObj = Instantiate(resetPrefab, currentTrans.position, currentTrans.rotation, currentTrans.parent);
+                newObj.transform.localScale = currentTrans.localScale;
+
+                OnResetObjectCompleted?.Invoke(newObj);
+
+                Debug.Log($"<color=green>[ToolInteractable] BERHASIL RESET PREFAB: Objek {gameObject.name} diganti dengan {newObj.name}</color>");
+
+                Destroy(gameObject);
+                return newObj;
+            }
+
+            Debug.Log($"[ToolInteractable] Reset data & objek di wadah {gameObject.name} selesai (Tanpa penggantian prefab).");
+            return gameObject;
         }
 
         public string GetFormattedActionPrompt(KeyCode key) => PromptKeyFormatter.FormatPromptText(key, actionPromptText);

@@ -81,8 +81,8 @@ namespace MoskowGameJam.ToolInteraction.SpecificInteractions
                 TimingMeterUI.Instance.ConfigureZones(greenZoneMin, greenZoneMax, yellowZoneMin, yellowZoneMax);
                 TimingMeterUI.Instance.UpdateProgress(ProgressNormalized);
 
-                string modeInfo = gameMode == TimingGameMode.PerfectOnly ? " [Hanya HIJAU yang diterima]" : " [Semua Hit Diterima]";
-                TimingMeterUI.Instance.SetFeedback($"Tekan [SPASI] saat jarum berayun!{modeInfo}", Color.white);
+                //string modeInfo = gameMode == TimingGameMode.PerfectOnly ? " [Hanya HIJAU yang diterima]" : " [Semua Hit Diterima]";
+                TimingMeterUI.Instance.SetFeedback($"Tekan [SPASI] saat jarum berayun!", Color.white);
             }
 
             Debug.Log($"[ToolTimingMiniGameInteraction] Mini-game timing dimulai pada {gameObject.name} (Mode: {gameMode})");
@@ -174,7 +174,7 @@ namespace MoskowGameJam.ToolInteraction.SpecificInteractions
 
                     if (TimingMeterUI.Instance != null)
                     {
-                        TimingMeterUI.Instance.SetFeedback("SEMPURNA! 🎯 (+3)", Color.green);
+                        TimingMeterUI.Instance.SetFeedback("Perfect! (+3)", Color.green);
                     }
                 }
                 else if (hitResult == 1) // Yellow
@@ -182,7 +182,7 @@ namespace MoskowGameJam.ToolInteraction.SpecificInteractions
                     OnGoodHit?.Invoke();
                     if (TimingMeterUI.Instance != null)
                     {
-                        TimingMeterUI.Instance.SetFeedback("KUNING! Mode Perfect: Coba pas di hijau!", Color.yellow);
+                        TimingMeterUI.Instance.SetFeedback("Try hit it when it's green!", Color.yellow);
                     }
                 }
                 else // Red
@@ -195,7 +195,7 @@ namespace MoskowGameJam.ToolInteraction.SpecificInteractions
                     OnMissHit?.Invoke();
                     if (TimingMeterUI.Instance != null)
                     {
-                        TimingMeterUI.Instance.SetFeedback("MELESET! ❌ Progress berkurang", Color.red);
+                        TimingMeterUI.Instance.SetFeedback("Miss, progress decreasing!", Color.red);
                     }
                 }
             }
@@ -211,21 +211,21 @@ namespace MoskowGameJam.ToolInteraction.SpecificInteractions
                         OnPerfectHit?.Invoke();
                         if (TimingMeterUI.Instance != null)
                         {
-                            TimingMeterUI.Instance.SetFeedback("SEMPURNA! 🎯 (+3)", Color.green);
+                            TimingMeterUI.Instance.SetFeedback("Perfect! (+3)", Color.green);
                         }
                         break;
                     case 1:
                         OnGoodHit?.Invoke();
                         if (TimingMeterUI.Instance != null)
                         {
-                            TimingMeterUI.Instance.SetFeedback("BAGUS! ⚠️ (+2)", Color.yellow);
+                            TimingMeterUI.Instance.SetFeedback("Good! (+2)", Color.yellow);
                         }
                         break;
                     default:
                         OnMissHit?.Invoke();
                         if (TimingMeterUI.Instance != null)
                         {
-                            TimingMeterUI.Instance.SetFeedback("KURANG PAS! ❌ (+1)", Color.red);
+                            TimingMeterUI.Instance.SetFeedback("Miss! (+1)", Color.red);
                         }
                         break;
                 }
@@ -267,6 +267,9 @@ namespace MoskowGameJam.ToolInteraction.SpecificInteractions
                 float ingredientScore = toolInteractable.CalculateIngredientScore();
                 toolInteractable.AddScore(ingredientScore); // 1. Masukkan nilai bahan dulu
                 toolInteractable.AddScore(calculatedFinalScore); // 2. Masukkan nilai minigame
+
+                // 3. Evaluasi dan ganti objek jika memenuhi kriteria threshold minimum score
+                toolInteractable.EvaluateTransformation();
             }
             else
             {
@@ -277,7 +280,7 @@ namespace MoskowGameJam.ToolInteraction.SpecificInteractions
 
             if (TimingMeterUI.Instance != null)
             {
-                TimingMeterUI.Instance.SetFeedback($"SELESAI! Nilai: {calculatedFinalScore * 100f:F0}% 🏆", Color.cyan);
+                TimingMeterUI.Instance.SetFeedback($"Finish! Score: {calculatedFinalScore * 100f:F0}%", Color.white);
             }
         }
 

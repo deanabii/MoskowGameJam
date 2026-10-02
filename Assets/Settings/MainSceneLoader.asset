@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: MainSceneLoader
   m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.SceneManagement.SceneLoadConfig
   scenesToLoad:
+  - Moskow
   - GrabbableInteraction
   - PhotoModeUI
   activeSceneName: MainGame
-  loadAsynchronously: 1
+  loadAsynchronously: 0

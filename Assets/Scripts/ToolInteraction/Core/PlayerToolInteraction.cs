@@ -180,17 +180,21 @@ namespace MoskowGameJam.ToolInteraction
             activeInteractionTool.SetGlow(false);
 
             // Sembunyikan Dual UI Prompt dan tampilkan Exit Prompt di Horizontal Layout Container
+            string exitPrompt = activeInteractionTool.GetFormattedExitPrompt(actionKey);
+            if (string.IsNullOrEmpty(exitPrompt)) exitPrompt = "[F] Keluar";
+
             if (ToolInteractionUI.Instance != null)
             {
                 ToolInteractionUI.Instance.HideDualPrompts();
                 ToolInteractionUI.Instance.ShowExitPrompt(
-                    "[F] Selesai",
+                    exitPrompt,
                     activeInteractionTool.ExitPromptSprite
                 );
             }
-            else if (PlayerObjectInteraction.Instance != null)
+            
+            if (PlayerObjectInteraction.Instance != null)
             {
-                PlayerObjectInteraction.Instance.SetExitPrompt("[F] Selesai");
+                PlayerObjectInteraction.Instance.SetExitPrompt(exitPrompt);
             }
 
             // Kunci pergerakan player
@@ -249,6 +253,11 @@ namespace MoskowGameJam.ToolInteraction
             if (activeInteractionTool.SpecificInteraction != null)
             {
                 activeInteractionTool.SpecificInteraction.OnUpdateInteraction();
+                if (activeInteractionTool.SpecificInteraction.IsCompleted)
+                {
+                    ExitToolInteraction();
+                    return;
+                }
             }
 
             // Tekan tombol interaksi/keluar (F, R, atau Escape) untuk selesai & kembali ke kamera player

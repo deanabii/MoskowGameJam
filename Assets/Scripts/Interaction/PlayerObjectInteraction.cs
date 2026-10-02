@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 #endif
 
 using MoskowGameJam.Settings;
+using MoskowGameJam.ToolInteraction.UI;
 
 namespace MoskowGameJam.Interaction
 {
@@ -73,6 +74,16 @@ namespace MoskowGameJam.Interaction
         [SerializeField] private TMP_Text insertPromptText;
         [SerializeField] private KeyCode insertKey = KeyCode.Q;
 
+        [Header("Keluar (Exit) Prompt")]
+        [SerializeField] private GameObject exitPromptPanel;
+        [SerializeField] private TMP_Text exitPromptText;
+        [SerializeField] private KeyCode exitKey = KeyCode.F;
+
+        [Header("Reset Prompt")]
+        [SerializeField] private GameObject resetPromptPanel;
+        [SerializeField] private TMP_Text resetPromptText;
+        [SerializeField] private KeyCode resetKey = KeyCode.R;
+
         [Header("Legacy Single UI Prompt (Fallback)")]
         [Tooltip("Root Canvas UI Panel untuk menampung Sprite dan Teks")]
         [SerializeField] private GameObject uiPromptPanel;
@@ -89,19 +100,20 @@ namespace MoskowGameJam.Interaction
         private Camera heldOverlayCamera;
         private int heldLayerIndex = -1;
 
+        // Tool Interaction State (Standalone)
+        private bool isToolInteracting;
+        private bool justEnteredToolInteraction;
+        private MoskowGameJam.ToolInteraction.ToolInteractable activeToolInteraction;
+
         public static PlayerObjectInteraction Instance { get; private set; }
         public Grabbable HeldObject => heldObject;
+        public bool IsToolInteracting => isToolInteracting;
 
         private void Awake()
         {
             if (Instance == null) Instance = this;
             AutoAssignReferences();
             EnsureGrabHoldTransform();
-
-            if (GetComponent<MoskowGameJam.ToolInteraction.PlayerToolInteraction>() == null)
-            {
-                gameObject.AddComponent<MoskowGameJam.ToolInteraction.PlayerToolInteraction>();
-            }
         }
 
         private void OnEnable()
@@ -292,8 +304,58 @@ namespace MoskowGameJam.Interaction
                 if (playerCamera == null) return;
             }
 
-            HandleRaycast();
-            HandleInput();
+            if (isToolInteracting)
+            {
+                HandleToolInteractionUpdate();
+            }
+            else
+            {
+                HandleRaycast();
+                HandleInput();
+            }
+        }
+
+        private void HandleToolInteractionUpdate()
+        {
+            if (activeToolInteraction == null)
+            {
+                isToolInteracting = false;
+                return;
+            }
+
+            if (justEnteredToolInteraction)
+            {
+                justEnteredToolInteraction = false;
+                return;
+            }
+
+            // Update mini-game interaksi spesifik
+            if (activeToolInteraction.SpecificInteraction != null)
+            {
+                activeToolInteraction.SpecificInteraction.OnUpdateInteraction();
+
+                // Jika mini-game telah selesai, langsung keluar dari mode fokus interaksi
+                if (activeToolInteraction.SpecificInteraction.IsCompleted)
+                {
+                    ExitToolInteraction();
+                    return;
+                }
+            }
+
+            // Tekan tombol Reset ([R])
+            if (IsKeyPressed(resetKey))
+            {
+                MoskowGameJam.ToolInteraction.ToolInteractable toolToReset = activeToolInteraction;
+                ExitToolInteraction();
+                toolToReset.ResetObject();
+                return;
+            }
+
+            // Tekan tombol interaksi/keluar (exitKey, toolInteractKey, atau ESC) untuk selesai & kembali ke kamera player
+            if (IsKeyPressed(exitKey) || IsKeyPressed(toolInteractKey) || IsKeyPressed(KeyCode.Escape))
+            {
+                ExitToolInteraction();
+            }
         }
 
         private void LateUpdate()
@@ -317,11 +379,9 @@ namespace MoskowGameJam.Interaction
 
         private void HandleRaycast()
         {
-            if (MoskowGameJam.ToolInteraction.PlayerToolInteraction.Instance != null &&
-                MoskowGameJam.ToolInteraction.PlayerToolInteraction.Instance.IsInteracting)
+            if (isToolInteracting)
             {
                 ClearCurrentTarget();
-                HideUIPrompt();
                 return;
             }
 
@@ -434,8 +494,7 @@ namespace MoskowGameJam.Interaction
 
         private void HandleInput()
         {
-            if (MoskowGameJam.ToolInteraction.PlayerToolInteraction.Instance != null &&
-                MoskowGameJam.ToolInteraction.PlayerToolInteraction.Instance.IsInteracting)
+            if (isToolInteracting)
             {
                 return;
             }
@@ -458,24 +517,7 @@ namespace MoskowGameJam.Interaction
             {
                 if (heldObject == null && currentTool != null)
                 {
-                    var toolInteraction = MoskowGameJam.ToolInteraction.PlayerToolInteraction.Instance;
-                    if (toolInteraction == null)
-                    {
-                        toolInteraction = GetComponent<MoskowGameJam.ToolInteraction.PlayerToolInteraction>();
-                        if (toolInteraction == null)
-                        {
-                            toolInteraction = gameObject.AddComponent<MoskowGameJam.ToolInteraction.PlayerToolInteraction>();
-                        }
-                    }
-
-                    if (toolInteraction != null)
-                    {
-                        toolInteraction.EnterToolInteraction(currentTool);
-                    }
-                    else
-                    {
-                        currentTool.SetCameraActive(true);
-                    }
+                    EnterToolInteraction(currentTool);
                 }
             }
 
@@ -491,6 +533,12 @@ namespace MoskowGameJam.Interaction
                     currentTool.AddItemToTool(itemObj);
                     HideUIPrompt();
                 }
+            }
+
+            // Input Reset Tool ([R])
+            if (currentTool != null && IsKeyPressed(resetKey))
+            {
+                currentTool.ResetObject();
             }
         }
 
@@ -567,21 +615,68 @@ namespace MoskowGameJam.Interaction
             HideUIPrompt();
         }
 
+        public void EnterToolInteraction(MoskowGameJam.ToolInteraction.ToolInteractable tool)
+        {
+            if (tool == null || isToolInteracting) return;
+
+            isToolInteracting = true;
+            justEnteredToolInteraction = true;
+            activeToolInteraction = tool;
+
+            // Matikan glow saat mode interaksi aktif
+            activeToolInteraction.SetGlow(false);
+
+            // Format dan tampilkan Exit Prompt
+            string exitMsg = activeToolInteraction.GetFormattedExitPrompt(exitKey);
+            if (string.IsNullOrEmpty(exitMsg)) exitMsg = PromptKeyFormatter.FormatPromptText(exitKey, activeToolInteraction.ExitPromptText);
+            if (string.IsNullOrEmpty(exitMsg)) exitMsg = $"[{exitKey}] Keluar";
+
+            string resetMsg = PromptKeyFormatter.FormatPromptText(resetKey, "Reset");
+            SetExitPrompt(exitMsg, true, resetMsg);
+
+            // Aktifkan Cinemachine Virtual Camera (Fokus Kamera ke Alat)
+            activeToolInteraction.SetCameraActive(true);
+
+            Debug.Log($"[PlayerObjectInteraction] Masuk mode interaksi alat & minigame {activeToolInteraction.name}");
+        }
+
+        public void ExitToolInteraction()
+        {
+            if (!isToolInteracting || activeToolInteraction == null) return;
+
+            // Deaktivasi Cinemachine Virtual Camera
+            activeToolInteraction.SetCameraActive(false);
+
+            // Sembunyikan Exit Prompt
+            HideUIPrompt();
+
+            MoskowGameJam.ToolInteraction.ToolInteractable exitedTool = activeToolInteraction;
+            activeToolInteraction = null;
+            isToolInteracting = false;
+            justEnteredToolInteraction = false;
+
+            Debug.Log($"[PlayerObjectInteraction] Keluar dari mode interaksi alat {exitedTool.name}");
+        }
+
         public void SetCustomPrompts(bool showAction, string actionText, bool showPlacing, string placingText)
         {
             SetPromptsVisibility(
                 showGrab: showPlacing, grabMsg: placingText,
                 showInteract: showAction, interactMsg: actionText,
-                showInsert: false, insertMsg: ""
+                showInsert: false, insertMsg: "",
+                showExit: false, exitMsg: "",
+                showReset: false, resetMsg: ""
             );
         }
 
-        public void SetExitPrompt(string exitText)
+        public void SetExitPrompt(string exitText, bool showReset = false, string resetText = "")
         {
             SetPromptsVisibility(
                 showGrab: false, grabMsg: "",
-                showInteract: true, interactMsg: exitText,
-                showInsert: false, insertMsg: ""
+                showInteract: false, interactMsg: "",
+                showInsert: false, insertMsg: "",
+                showExit: true, exitMsg: exitText,
+                showReset: showReset, resetMsg: resetText
             );
         }
 
@@ -590,7 +685,12 @@ namespace MoskowGameJam.Interaction
             HideUIPrompt();
         }
 
-        public void SetPromptsVisibility(bool showGrab, string grabMsg, bool showInteract, string interactMsg, bool showInsert, string insertMsg)
+        public void SetPromptsVisibility(
+            bool showGrab, string grabMsg, 
+            bool showInteract, string interactMsg, 
+            bool showInsert, string insertMsg,
+            bool showExit = false, string exitMsg = "",
+            bool showReset = false, string resetMsg = "")
         {
             if (grabPromptPanel != null)
             {
@@ -610,31 +710,45 @@ namespace MoskowGameJam.Interaction
                 if (showInsert && insertPromptText != null) insertPromptText.text = insertMsg;
             }
 
+            if (exitPromptPanel != null)
+            {
+                exitPromptPanel.SetActive(showExit);
+                if (showExit && exitPromptText != null) exitPromptText.text = exitMsg;
+            }
+
+            if (resetPromptPanel != null)
+            {
+                resetPromptPanel.SetActive(showReset);
+                if (showReset && resetPromptText != null) resetPromptText.text = resetMsg;
+            }
+
             if (promptContainer != null)
             {
-                promptContainer.SetActive(showGrab || showInteract || showInsert);
+                promptContainer.SetActive(showGrab || showInteract || showInsert || showExit || showReset);
             }
 
             if (uiPromptPanel != null && promptContainer == null)
             {
-                uiPromptPanel.SetActive(showGrab || showInteract || showInsert);
+                uiPromptPanel.SetActive(showGrab || showInteract || showInsert || showExit || showReset);
                 if (uiPromptText != null)
                 {
                     if (showGrab) uiPromptText.text = grabMsg;
                     else if (showInteract) uiPromptText.text = interactMsg;
                     else if (showInsert) uiPromptText.text = insertMsg;
+                    else if (showExit) uiPromptText.text = exitMsg;
+                    else if (showReset) uiPromptText.text = resetMsg;
                 }
             }
         }
 
         private void ShowUIPrompt(string promptMessage)
         {
-            SetPromptsVisibility(true, promptMessage, false, "", false, "");
+            SetPromptsVisibility(true, promptMessage, false, "", false, "", false, "", false, "");
         }
 
         private void HideUIPrompt()
         {
-            SetPromptsVisibility(false, "", false, "", false, "");
+            SetPromptsVisibility(false, "", false, "", false, "", false, "", false, "");
         }
     }
 }
