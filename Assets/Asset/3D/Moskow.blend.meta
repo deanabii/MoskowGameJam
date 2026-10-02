@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: 32ab3c46cbec8d14982c662abe3c0579, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_Black
     second: {fileID: 2100000, guid: 27bd286f302d1af458897e21bbfe1a96, type: 2}
   - first:
@@ -14,6 +19,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: M_Blue
     second: {fileID: 2100000, guid: 5020b0cf0345823489f68411935cde73, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Bone
+    second: {fileID: 2100000, guid: 1dedc48c7e4c9504c856a2b1f3d76fdf, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -42,6 +52,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Piring
+    second: {fileID: 2100000, guid: 3f461711efd891f449750f92c97923a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_Red
     second: {fileID: 2100000, guid: 512fdbf4b5b8e3247b7cb36e0bc3c843, type: 2}
   - first:
@@ -62,8 +77,53 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_food
+    second: {fileID: 2100000, guid: 60489b504e2cc1c49adac25d0fff5dfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_wood
     second: {fileID: 2100000, guid: c8d504fa3906c7e438bbe4285eee9241, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.007
+    second: {fileID: 2100000, guid: a7da201d2587c24438dafdb1e32beb1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.009
+    second: {fileID: 2100000, guid: e3b694e089ca69349a7a9ad6ef49d630, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.011
+    second: {fileID: 2100000, guid: 98dbf6f0089387444b35ba3ca1cb6a8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.012
+    second: {fileID: 2100000, guid: fed6b39621f0e244db389ddb0cc388e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.013
+    second: {fileID: 2100000, guid: fc69d1bdd60ca774a9c134e6cd70d48c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.014
+    second: {fileID: 2100000, guid: 7318bf7b2f7f6734db238e75674315b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.015
+    second: {fileID: 2100000, guid: 829a58957b6568a478ba4fba7950db80, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.016
+    second: {fileID: 2100000, guid: 44fe8fe4af28d6a4897394e6336b4965, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
