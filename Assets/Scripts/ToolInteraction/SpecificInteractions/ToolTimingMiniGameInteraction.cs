@@ -254,7 +254,9 @@ namespace MoskowGameJam.ToolInteraction.SpecificInteractions
             Debug.Log($"<color=cyan>[ToolTimingMiniGameInteraction] Mini-game SELESAI di {gameObject.name}! " +
                       $"Total Input Score: {totalInputScore}/{maxPossibleScore} | Final Score: {calculatedFinalScore:F2} ({calculatedFinalScore * 100f:F0}%)</color>");
 
-            // Tambahkan nilai baru ke list di ToolInteractable
+            // Tambahkan nilai ke list di ToolInteractable:
+            // 1. Skor Bahan DULU (sesuai requiredObjects)
+            // 2. Skor Minigame (performa timing player)
             if (toolInteractable == null)
             {
                 toolInteractable = GetComponent<ToolInteractable>();
@@ -262,7 +264,9 @@ namespace MoskowGameJam.ToolInteraction.SpecificInteractions
 
             if (toolInteractable != null)
             {
-                toolInteractable.AddScore(calculatedFinalScore);
+                float ingredientScore = toolInteractable.CalculateIngredientScore();
+                toolInteractable.AddScore(ingredientScore); // 1. Masukkan nilai bahan dulu
+                toolInteractable.AddScore(calculatedFinalScore); // 2. Masukkan nilai minigame
             }
             else
             {

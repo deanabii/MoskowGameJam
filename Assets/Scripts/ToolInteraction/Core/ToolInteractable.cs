@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using MoskowGameJam.ToolInteraction.UI;
+using MoskowGameJam.Interaction;
 
 #if UNITY_2023_1_OR_NEWER
 using Unity.Cinemachine;
@@ -38,9 +39,16 @@ namespace MoskowGameJam.ToolInteraction
         [SerializeField] private string exitPromptText = "Selesai";
         [SerializeField] private Sprite exitPromptSprite;
 
-        [Header("Object Container Settings")]
+        [Header("Object Container & Recipe Settings")]
         [Tooltip("Daftar objek yang dimasukkan/ditempatkan ke dalam alat ini")]
         [SerializeField] private List<GameObject> placedObjectsList = new List<GameObject>();
+
+        [Tooltip("Daftar resep objek yang diperlukan oleh alat ini")]
+        [SerializeField] private List<GameObject> requiredObjectsList = new List<GameObject>();
+
+        [Tooltip("Multiplier penalti selisih jumlah objek (default = 2.0)")]
+        [SerializeField] private float quantityMismatchMultiplier = 2.0f;
+
         [SerializeField] private Transform itemPlacementPoint;
 
         [Header("Score Settings")]
@@ -68,6 +76,7 @@ namespace MoskowGameJam.ToolInteraction
         public string ExitPromptText => exitPromptText;
         public Sprite ExitPromptSprite => exitPromptSprite;
         public List<GameObject> PlacedObjectsList => placedObjectsList;
+        public List<GameObject> RequiredObjectsList => requiredObjectsList;
         public List<float> InteractionScores => interactionScores;
         public float FinalAverageScore => finalAverageScore;
         public IToolMiniGameInteraction SpecificInteraction => miniGameInteraction;
@@ -95,6 +104,112 @@ namespace MoskowGameJam.ToolInteraction
 
             finalAverageScore = sum / interactionScores.Count;
             return finalAverageScore;
+        }
+
+        /// <summary>
+        /// Mengambil nama objek yang bersih. Mengutamakan ObjectValue.objectName jika ada.
+        /// Jika tidak ada, menggunakan gameObject.name dengan menghapus suffix (Clone).
+        /// </summary>
+        public string GetCleanObjectName(GameObject obj)
+        {
+            if (obj == null) return string.Empty;
+
+            // Cek komponen ObjectValue pada objek, children, atau parent
+            ObjectValue val = obj.GetComponent<ObjectValue>();
+            if (val == null) val = obj.GetComponentInChildren<ObjectValue>();
+            if (val == null) val = obj.GetComponentInParent<ObjectValue>();
+
+            if (val != null && !string.IsNullOrWhiteSpace(val.objectName))
+            {
+                return val.objectName.Trim();
+            }
+
+            // Fallback ke nama GameObject
+            string name = obj.name;
+            int cloneIndex = name.IndexOf("(Clone)", System.StringComparison.OrdinalIgnoreCase);
+            if (cloneIndex >= 0)
+            {
+                name = name.Substring(0, cloneIndex);
+            }
+            return name.Trim();
+        }
+
+        /// <summary>
+        /// Menghitung skor persentase pencocokan bahan yang dimasukkan (placedObjectsList) 
+        /// dengan bahan yang diperlukan (requiredObjectsList).
+        /// Formula: M / (R + (D * k))
+        /// M = Jumlah object yang cocok
+        /// R = Total object yang diperlukan
+        /// D = |Placed - Required| (selisih positif)
+        /// k = quantityMismatchMultiplier (default 2)
+        /// </summary>
+        public float CalculateIngredientScore()
+        {
+            int reqTotal = requiredObjectsList != null ? requiredObjectsList.Count : 0;
+            int placedTotal = placedObjectsList != null ? placedObjectsList.Count : 0;
+
+            // Special Case: Jika tidak butuh bahan dan memang tidak ada bahan
+            if (reqTotal == 0 && placedTotal == 0)
+            {
+                Debug.Log($"[ToolInteractable] Ingredient Score: 1.00 (Required & Placed List kosong)");
+                return 1.0f;
+            }
+
+            // Count frequency map of required objects
+            Dictionary<string, int> reqMap = new Dictionary<string, int>(System.StringComparer.OrdinalIgnoreCase);
+            if (requiredObjectsList != null)
+            {
+                foreach (GameObject obj in requiredObjectsList)
+                {
+                    if (obj == null) continue;
+                    string key = GetCleanObjectName(obj);
+                    if (string.IsNullOrEmpty(key)) continue;
+                    if (reqMap.ContainsKey(key)) reqMap[key]++;
+                    else reqMap[key] = 1;
+                }
+            }
+
+            // Count frequency map of placed objects
+            Dictionary<string, int> placedMap = new Dictionary<string, int>(System.StringComparer.OrdinalIgnoreCase);
+            if (placedObjectsList != null)
+            {
+                foreach (GameObject obj in placedObjectsList)
+                {
+                    if (obj == null) continue;
+                    string key = GetCleanObjectName(obj);
+                    if (string.IsNullOrEmpty(key)) continue;
+                    if (placedMap.ContainsKey(key)) placedMap[key]++;
+                    else placedMap[key] = 1;
+                }
+            }
+
+            // Calculate matched count (jumlah object yang sama)
+            int matchedCount = 0;
+            foreach (var pair in reqMap)
+            {
+                string reqName = pair.Key;
+                int reqQty = pair.Value;
+                if (placedMap.TryGetValue(reqName, out int placedQty))
+                {
+                    matchedCount += Mathf.Min(reqQty, placedQty);
+                }
+            }
+
+            // Selisih D = |Placed - Required|
+            int diff = Mathf.Abs(placedTotal - reqTotal);
+            float denominator = reqTotal + (diff * quantityMismatchMultiplier);
+
+            if (denominator <= 0f)
+            {
+                return 0f;
+            }
+
+            float ingredientScore = Mathf.Clamp01((float)matchedCount / denominator);
+
+            Debug.Log($"<color=yellow>[ToolInteractable] Calculated Ingredient Score: {ingredientScore:F2} ({ingredientScore * 100f:F0}%) " +
+                      $"(Matched={matchedCount}, RequiredTotal={reqTotal}, PlacedTotal={placedTotal}, Diff={diff}, Multiplier={quantityMismatchMultiplier})</color>");
+
+            return ingredientScore;
         }
 
         public string GetFormattedActionPrompt(KeyCode key) => PromptKeyFormatter.FormatPromptText(key, actionPromptText);

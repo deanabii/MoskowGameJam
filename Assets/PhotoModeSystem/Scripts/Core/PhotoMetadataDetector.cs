@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using MoskowGameJam.Interaction;
 
 namespace PhotoModeSystem
 {

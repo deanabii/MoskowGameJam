@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PhotoModeSystem
+namespace MoskowGameJam.Interaction
 {
     [DisallowMultipleComponent]
     public class ObjectValue : MonoBehaviour
