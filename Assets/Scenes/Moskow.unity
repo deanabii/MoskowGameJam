@@ -354,11 +354,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -6733177361254619370, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
   m_PrefabInstance: {fileID: 1146483010}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &30649718 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8513859187771203891, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-  m_PrefabInstance: {fileID: 1146483010}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &30649719 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5754060345647867467, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
@@ -709,6 +704,151 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1926403951900781465, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &30649772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
+--- !u!1 &30788938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 30788941}
+  - component: {fileID: 30788939}
+  - component: {fileID: 30788940}
+  m_Layer: 0
+  m_Name: '[HeldOverlayCamera]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!20 &30788939
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30788938}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 4
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.2
+  far clip plane: 500
+  field of view: 40
+  orthographic: 0
+  orthographic size: 10
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &30788940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30788938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 1
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
+--- !u!4 &30788941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30788938}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 945397421}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &34130619
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -753,6 +893,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6483373102336730412, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &64835843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &69147386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1077,6 +1234,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5014901743460754363, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &115322809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &125928646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1321,7 +1495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &132695078
 Transform:
   m_ObjectHideFlags: 0
@@ -2400,6 +2574,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3165985885265623073, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &288016264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &292738300
 GameObject:
   m_ObjectHideFlags: 0
@@ -2650,6 +2841,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7004783832934855251, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &303906064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &314109377
 GameObject:
   m_ObjectHideFlags: 0
@@ -2898,6 +3106,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6531525120215824829, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &325343935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &327758138
 GameObject:
   m_ObjectHideFlags: 0
@@ -3248,6 +3473,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8338533158269985661, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &371289020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &371634334
 GameObject:
   m_ObjectHideFlags: 0
@@ -3658,31 +3900,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -14.60963
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.375
+      value: 2.4460235
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 10.400749
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.010336033
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.0043182373
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.38432202
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.92313117
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3708,13 +3950,23 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 9005220659476430821, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967231
+      objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430823, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_Name
       value: MainCamera (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 30788941}
+    - targetCorrespondingSourceObject: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 458098504}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9005220659476430823, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       insertIndex: -1
@@ -3764,6 +4016,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3779470537144863991, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &416886659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &420806033
 GameObject:
   m_ObjectHideFlags: 0
@@ -4013,6 +4282,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5854088795082504319, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &442694421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!64 &446976080
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4035,28 +4321,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8302102485596996044, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
---- !u!64 &462371372
-MeshCollider:
+--- !u!1 &458098503
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30649718}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7387706064836869012, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 458098504}
+  m_Layer: 0
+  m_Name: '[GrabHoldPoint]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &458098504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458098503}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: -0.52, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 945397421}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &466655664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5621,6 +5916,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2274429698735732484, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &592099525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!64 &592335617
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5891,6 +6203,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2197432529730985287, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &605349178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &606153507
 GameObject:
   m_ObjectHideFlags: 0
@@ -6218,6 +6547,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6852063245059869762, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &640552173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &640885807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6489,6 +6835,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3870914203038805784, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &682994293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Pirozhki
+  valueAmount: 100
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &683522558
 GameObject:
   m_ObjectHideFlags: 0
@@ -6921,6 +7284,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7264420165973751989, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &731819464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!64 &744141571
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6943,6 +7323,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7320337711353344170, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &744141572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &746698995
 GameObject:
   m_ObjectHideFlags: 0
@@ -7153,6 +7550,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 37026fea9c0f20048bea5700b6d4b897, type: 3}
       insertIndex: -1
       addedObject: {fileID: 768930494}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 37026fea9c0f20048bea5700b6d4b897, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 768930495}
   m_SourcePrefab: {fileID: 100100000, guid: 37026fea9c0f20048bea5700b6d4b897, type: 3}
 --- !u!1 &768930493 stripped
 GameObject:
@@ -7180,6 +7580,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.2044673, y: 5.8045125, z: 2.0335498}
   m_Center: {x: -0.056302067, y: 2.8938735, z: -0.042189833}
+--- !u!114 &768930495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768930493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Building 5
+  valueAmount: 100
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!64 &770985834
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7224,6 +7641,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5486450741063627033, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &785641400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &785855508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7769,6 +8203,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4612637467987462802, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &814564682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &823792981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7844,6 +8295,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 6d75e2d5936dd69428c33f6dc7f1f195, type: 3}
       insertIndex: -1
       addedObject: {fileID: 823792983}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 6d75e2d5936dd69428c33f6dc7f1f195, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 823792984}
   m_SourcePrefab: {fileID: 100100000, guid: 6d75e2d5936dd69428c33f6dc7f1f195, type: 3}
 --- !u!1 &823792982 stripped
 GameObject:
@@ -7871,6 +8325,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.5589695, y: 5.128386, z: 3.3320127}
   m_Center: {x: 0, y: 2.564193, z: -0.065268345}
+--- !u!114 &823792984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823792982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Building 3
+  valueAmount: 100
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &844969841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7942,6 +8413,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 3be7f824c95b00b43a3316d6c9c85f45, type: 3}
       insertIndex: -1
       addedObject: {fileID: 844969843}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 3be7f824c95b00b43a3316d6c9c85f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 844969844}
   m_SourcePrefab: {fileID: 100100000, guid: 3be7f824c95b00b43a3316d6c9c85f45, type: 3}
 --- !u!1 &844969842 stripped
 GameObject:
@@ -7970,6 +8444,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 3be7f824c95b00b43a3316d6c9c85f45, type: 3}
+--- !u!114 &844969844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844969842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Buildings 2
+  valueAmount: 100
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &851516715
 GameObject:
   m_ObjectHideFlags: 0
@@ -8335,6 +8826,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8314571269056883277, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &871346696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!64 &881712178
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8357,6 +8865,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2005475787124032521, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &881712179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &891808154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9866,7 +10391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &967014841
 Transform:
   m_ObjectHideFlags: 0
@@ -10258,6 +10783,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 3be7f824c95b00b43a3316d6c9c85f45, type: 3}
       insertIndex: -1
       addedObject: {fileID: 976323658}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 3be7f824c95b00b43a3316d6c9c85f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 976323659}
   m_SourcePrefab: {fileID: 100100000, guid: 3be7f824c95b00b43a3316d6c9c85f45, type: 3}
 --- !u!1 &976323657 stripped
 GameObject:
@@ -10286,6 +10814,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 3be7f824c95b00b43a3316d6c9c85f45, type: 3}
+--- !u!114 &976323659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976323657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Buildings 2
+  valueAmount: 100
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &983815894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11067,6 +11612,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5021170130000299562, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1054317939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!64 &1054364819
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11089,6 +11651,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8999911773206952699, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1054364820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!64 &1057535826
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11311,7 +11890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1080073837
 Transform:
   m_ObjectHideFlags: 0
@@ -11874,13 +12453,14 @@ GameObject:
   - component: {fileID: 1114818089}
   - component: {fileID: 1114818088}
   - component: {fileID: 1114818090}
+  - component: {fileID: 1114818091}
   m_Layer: 0
   m_Name: Circle.040 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1114818087
 Transform:
   m_ObjectHideFlags: 0
@@ -11975,6 +12555,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2813250132453748267, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1114818091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114818086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1115175963
 GameObject:
   m_ObjectHideFlags: 0
@@ -12507,6 +13104,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 5020b0cf0345823489f68411935cde73, type: 2}
+    - target: {fileID: -7146521406498821007, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7057566816209650108, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -6477485979442394911, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.6099
@@ -12530,6 +13135,10 @@ PrefabInstance:
     - target: {fileID: -6477485979442394911, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_LocalPosition.z
       value: 4.4623
+      objectReference: {fileID: 0}
+    - target: {fileID: -6414414180969646916, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5886357761383869240, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12638,6 +13247,10 @@ PrefabInstance:
     - target: {fileID: -3852738546597611220, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_LocalPosition.z
       value: 5.02
+      objectReference: {fileID: 0}
+    - target: {fileID: -3215555783603854218, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2688129094825048637, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12799,6 +13412,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 182.793
       objectReference: {fileID: 0}
+    - target: {fileID: -1063203228461421988, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1018664272722485354, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -601018869012299972, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.995322
@@ -12850,6 +13471,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_Name
       value: Moskow
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1578115775279380021, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12951,6 +13576,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 66a598a515c6add4da28db24650fa671, type: 2}
+    - target: {fileID: 4424396828587804706, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4912018962468443967, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.6
@@ -13034,6 +13663,10 @@ PrefabInstance:
     - target: {fileID: 5666261585234168772, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914173764048766335, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6182684662769382227, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13163,6 +13796,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 13.112
       objectReference: {fileID: 0}
+    - target: {fileID: 8700725330082129686, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8946660040297601765, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1.55
@@ -13232,6 +13869,7 @@ PrefabInstance:
     - {fileID: 4962880106070296885, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
     - {fileID: 7645882694643820382, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
     - {fileID: 2899167399927329001, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+    - {fileID: 8513859187771203891, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: 1
@@ -13585,35 +14223,38 @@ PrefabInstance:
       insertIndex: 162
       addedObject: {fileID: 292738301}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-      insertIndex: 169
+      insertIndex: 168
       addedObject: {fileID: 1595716366}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-      insertIndex: 170
+      insertIndex: 169
       addedObject: {fileID: 967014841}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-      insertIndex: 171
+      insertIndex: 170
       addedObject: {fileID: 1998076006}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-      insertIndex: 173
+      insertIndex: 172
       addedObject: {fileID: 2121151976}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-      insertIndex: 177
+      insertIndex: 176
       addedObject: {fileID: 952807197}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-      insertIndex: 178
+      insertIndex: 177
       addedObject: {fileID: 995218570}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-      insertIndex: 179
+      insertIndex: 178
       addedObject: {fileID: 2129064163}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-      insertIndex: 181
+      insertIndex: 180
       addedObject: {fileID: 2113145749}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-      insertIndex: 182
+      insertIndex: 181
       addedObject: {fileID: 2135866823}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-      insertIndex: 183
+      insertIndex: 182
       addedObject: {fileID: 1812144752}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: 184
+      addedObject: {fileID: 2809891723450140924}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: 185
       addedObject: {fileID: 1080073837}
@@ -13687,132 +14328,255 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5233112405309087440, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 30649767}
+    - targetCorrespondingSourceObject: {fileID: 5233112405309087440, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 30649772}
     - targetCorrespondingSourceObject: {fileID: -3756473180518285571, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 871346695}
+    - targetCorrespondingSourceObject: {fileID: -3756473180518285571, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 871346696}
     - targetCorrespondingSourceObject: {fileID: -1025663018108745142, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1054364819}
+    - targetCorrespondingSourceObject: {fileID: -1025663018108745142, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1054364820}
     - targetCorrespondingSourceObject: {fileID: 2891746525080496957, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1201214763}
+    - targetCorrespondingSourceObject: {fileID: 2891746525080496957, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1201214764}
     - targetCorrespondingSourceObject: {fileID: 6335250783087129314, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1981354236}
+    - targetCorrespondingSourceObject: {fileID: 6335250783087129314, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1981354237}
     - targetCorrespondingSourceObject: {fileID: -1688617927700330159, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1146483015}
     - targetCorrespondingSourceObject: {fileID: -1688617927700330159, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1146483017}
+    - targetCorrespondingSourceObject: {fileID: -1688617927700330159, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1146483018}
     - targetCorrespondingSourceObject: {fileID: 492440804577196729, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 442694420}
+    - targetCorrespondingSourceObject: {fileID: 492440804577196729, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 442694421}
     - targetCorrespondingSourceObject: {fileID: 5837523472550796488, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1412805034}
+    - targetCorrespondingSourceObject: {fileID: 5837523472550796488, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1412805035}
     - targetCorrespondingSourceObject: {fileID: 7959026430977397170, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 325343934}
+    - targetCorrespondingSourceObject: {fileID: 7959026430977397170, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 325343935}
     - targetCorrespondingSourceObject: {fileID: -998708227812776082, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 28161867}
+    - targetCorrespondingSourceObject: {fileID: -998708227812776082, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1463010806}
     - targetCorrespondingSourceObject: {fileID: -5538985522780130180, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2014761441}
+    - targetCorrespondingSourceObject: {fileID: -5538985522780130180, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2014761442}
     - targetCorrespondingSourceObject: {fileID: 6806708169297508064, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 288016263}
+    - targetCorrespondingSourceObject: {fileID: 6806708169297508064, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 288016264}
     - targetCorrespondingSourceObject: {fileID: -3690676483951470995, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1995212534}
+    - targetCorrespondingSourceObject: {fileID: -3690676483951470995, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1995212535}
     - targetCorrespondingSourceObject: {fileID: 2664315668225096746, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 744141571}
+    - targetCorrespondingSourceObject: {fileID: 2664315668225096746, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 744141572}
     - targetCorrespondingSourceObject: {fileID: -2384658835620542840, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 64835842}
+    - targetCorrespondingSourceObject: {fileID: -2384658835620542840, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 64835843}
     - targetCorrespondingSourceObject: {fileID: 5666858511584735161, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2018770498}
+    - targetCorrespondingSourceObject: {fileID: 5666858511584735161, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2018770499}
     - targetCorrespondingSourceObject: {fileID: 7964157543444745748, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 881712178}
+    - targetCorrespondingSourceObject: {fileID: 7964157543444745748, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 881712179}
     - targetCorrespondingSourceObject: {fileID: 6510112150598826555, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1702451744}
+    - targetCorrespondingSourceObject: {fileID: 6510112150598826555, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1702451745}
     - targetCorrespondingSourceObject: {fileID: 7109989669349563735, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 303906063}
+    - targetCorrespondingSourceObject: {fileID: 7109989669349563735, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 303906064}
     - targetCorrespondingSourceObject: {fileID: 5511774174995466309, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1214291527}
+    - targetCorrespondingSourceObject: {fileID: 5511774174995466309, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1214291528}
     - targetCorrespondingSourceObject: {fileID: -7891163424168291849, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 416886658}
+    - targetCorrespondingSourceObject: {fileID: -7891163424168291849, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 416886659}
     - targetCorrespondingSourceObject: {fileID: 7874717877171951767, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1856189962}
+    - targetCorrespondingSourceObject: {fileID: 7874717877171951767, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1856189963}
     - targetCorrespondingSourceObject: {fileID: 4284265926381754651, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 814564681}
+    - targetCorrespondingSourceObject: {fileID: 4284265926381754651, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 814564682}
     - targetCorrespondingSourceObject: {fileID: -1281700104397665434, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1534157589}
+    - targetCorrespondingSourceObject: {fileID: -1281700104397665434, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1534157590}
     - targetCorrespondingSourceObject: {fileID: -824832095484323658, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 592099524}
+    - targetCorrespondingSourceObject: {fileID: -824832095484323658, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 592099525}
     - targetCorrespondingSourceObject: {fileID: 6219161318787881635, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 731819463}
+    - targetCorrespondingSourceObject: {fileID: 6219161318787881635, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 731819464}
     - targetCorrespondingSourceObject: {fileID: 1006523649452529511, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1355250184}
+    - targetCorrespondingSourceObject: {fileID: 1006523649452529511, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1355250185}
     - targetCorrespondingSourceObject: {fileID: 5577938150511905068, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1302768820}
+    - targetCorrespondingSourceObject: {fileID: 5577938150511905068, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1302768821}
     - targetCorrespondingSourceObject: {fileID: 2287916092495203936, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1698540604}
+    - targetCorrespondingSourceObject: {fileID: 2287916092495203936, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1698540605}
     - targetCorrespondingSourceObject: {fileID: 3564888137742683351, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 115322808}
+    - targetCorrespondingSourceObject: {fileID: 3564888137742683351, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 115322809}
     - targetCorrespondingSourceObject: {fileID: 963387401458319920, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 371289019}
+    - targetCorrespondingSourceObject: {fileID: 963387401458319920, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 371289020}
     - targetCorrespondingSourceObject: {fileID: -5913068023555347262, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1976286992}
+    - targetCorrespondingSourceObject: {fileID: -5913068023555347262, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1976286993}
     - targetCorrespondingSourceObject: {fileID: 3151577034693825849, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1490512605}
+    - targetCorrespondingSourceObject: {fileID: 3151577034693825849, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1490512606}
     - targetCorrespondingSourceObject: {fileID: -8417414189359062939, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1516851439}
+    - targetCorrespondingSourceObject: {fileID: -8417414189359062939, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1516851440}
     - targetCorrespondingSourceObject: {fileID: 7405125788346379505, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1498893265}
+    - targetCorrespondingSourceObject: {fileID: 7405125788346379505, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1498893266}
     - targetCorrespondingSourceObject: {fileID: -6032874738866285797, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1757986600}
+    - targetCorrespondingSourceObject: {fileID: -6032874738866285797, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1757986601}
     - targetCorrespondingSourceObject: {fileID: -8039890614439172031, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1054317938}
+    - targetCorrespondingSourceObject: {fileID: -8039890614439172031, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1054317939}
     - targetCorrespondingSourceObject: {fileID: 4005363796782682704, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 605349177}
+    - targetCorrespondingSourceObject: {fileID: 4005363796782682704, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 605349178}
     - targetCorrespondingSourceObject: {fileID: -5301487312846515653, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 785641399}
+    - targetCorrespondingSourceObject: {fileID: -5301487312846515653, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 785641400}
     - targetCorrespondingSourceObject: {fileID: -8611868380463046820, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 640552172}
+    - targetCorrespondingSourceObject: {fileID: -8611868380463046820, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 640552173}
     - targetCorrespondingSourceObject: {fileID: 410880670084300193, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 754374140}
     - targetCorrespondingSourceObject: {fileID: 7140395454365607759, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1171907206}
+    - targetCorrespondingSourceObject: {fileID: 7140395454365607759, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1171907207}
     - targetCorrespondingSourceObject: {fileID: -7146521406498821007, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 669381132}
@@ -13822,9 +14586,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -5754060345647867467, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 344959272}
-    - targetCorrespondingSourceObject: {fileID: 8513859187771203891, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 462371372}
     - targetCorrespondingSourceObject: {fileID: -6733177361254619370, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 330419709}
@@ -13882,6 +14643,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2454110569814158082, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 682994292}
+    - targetCorrespondingSourceObject: {fileID: 2454110569814158082, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 682994293}
     - targetCorrespondingSourceObject: {fileID: -1018664272722485354, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1814882392}
@@ -14000,6 +14764,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7567532504055388576, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1146483018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146483013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1164288780
 GameObject:
   m_ObjectHideFlags: 0
@@ -14136,6 +14917,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2238446771253661479, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1171907207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Kvass
+  valueAmount: 100
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1197358129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14227,6 +15025,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8792586484180348971, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1201214764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1213614626
 GameObject:
   m_ObjectHideFlags: 0
@@ -14362,6 +15177,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3635512377249483938, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1214291528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1222156483
 GameObject:
   m_ObjectHideFlags: 0
@@ -15251,13 +16083,14 @@ GameObject:
   - component: {fileID: 1279669436}
   - component: {fileID: 1279669435}
   - component: {fileID: 1279669437}
+  - component: {fileID: 1279669438}
   m_Layer: 0
   m_Name: Circle.040 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1279669434
 Transform:
   m_ObjectHideFlags: 0
@@ -15352,6 +16185,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2813250132453748267, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1279669438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279669433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1281986014
 GameObject:
   m_ObjectHideFlags: 0
@@ -15712,6 +16562,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2911094460527971725, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1302768821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1315185859
 GameObject:
   m_ObjectHideFlags: 0
@@ -15724,13 +16591,14 @@ GameObject:
   - component: {fileID: 1315185862}
   - component: {fileID: 1315185861}
   - component: {fileID: 1315185863}
+  - component: {fileID: 1315185864}
   m_Layer: 0
   m_Name: Circle.040 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1315185860
 Transform:
   m_ObjectHideFlags: 0
@@ -15825,6 +16693,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2813250132453748267, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1315185864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315185859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1316327246
 GameObject:
   m_ObjectHideFlags: 0
@@ -16416,6 +17301,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1416666213904562892, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1355250185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1373875466
 GameObject:
   m_ObjectHideFlags: 0
@@ -16830,6 +17732,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 4745f1ac0883e6048bc0591f23f74a1d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1386539228}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 4745f1ac0883e6048bc0591f23f74a1d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1386539229}
   m_SourcePrefab: {fileID: 100100000, guid: 4745f1ac0883e6048bc0591f23f74a1d, type: 3}
 --- !u!1 &1386539227 stripped
 GameObject:
@@ -16858,6 +17763,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 4745f1ac0883e6048bc0591f23f74a1d, type: 3}
+--- !u!114 &1386539229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386539227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Building 1
+  valueAmount: 100
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1400717521
 GameObject:
   m_ObjectHideFlags: 0
@@ -17387,6 +18309,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1198743231517016826, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1412805035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1443086344
 GameObject:
   m_ObjectHideFlags: 0
@@ -17775,6 +18714,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7414509850709746518, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1463010806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1488248516
 GameObject:
   m_ObjectHideFlags: 0
@@ -17910,6 +18866,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2670583706153098753, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1490512606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!64 &1498893265
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17932,6 +18905,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 9258629174587445, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1498893266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1512895005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18011,6 +19001,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1109158738587986610, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1516851440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1531499969
 GameObject:
   m_ObjectHideFlags: 0
@@ -18023,13 +19030,14 @@ GameObject:
   - component: {fileID: 1531499972}
   - component: {fileID: 1531499971}
   - component: {fileID: 1531499973}
+  - component: {fileID: 1531499974}
   m_Layer: 0
   m_Name: Circle.040 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1531499970
 Transform:
   m_ObjectHideFlags: 0
@@ -18124,6 +19132,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2813250132453748267, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1531499974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531499969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!64 &1534157589
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -18146,6 +19171,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3578723373924186483, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1534157590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1542137919
 GameObject:
   m_ObjectHideFlags: 0
@@ -18507,7 +19549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1595716366
 Transform:
   m_ObjectHideFlags: 0
@@ -19434,6 +20476,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2810966353409093201, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1698540605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!64 &1702451744
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -19456,6 +20515,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1430590514721885144, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1702451745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1720653484
 GameObject:
   m_ObjectHideFlags: 0
@@ -19666,6 +20742,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 6d75e2d5936dd69428c33f6dc7f1f195, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1735496520}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 6d75e2d5936dd69428c33f6dc7f1f195, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1735496521}
   m_SourcePrefab: {fileID: 100100000, guid: 6d75e2d5936dd69428c33f6dc7f1f195, type: 3}
 --- !u!1 &1735496519 stripped
 GameObject:
@@ -19693,6 +20772,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.558969, y: 5.128386, z: 3.3320122}
   m_Center: {x: 0, y: 2.564193, z: -0.06526834}
+--- !u!114 &1735496521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735496519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Building 4
+  valueAmount: 100
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1749739026
 GameObject:
   m_ObjectHideFlags: 0
@@ -20054,6 +21150,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2246228936936605949, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1757986601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1780587412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20267,7 +21380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1812144752
 Transform:
   m_ObjectHideFlags: 0
@@ -20815,6 +21928,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6138787480799432094, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1856189963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1861683644
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21598,13 +22728,14 @@ GameObject:
   - component: {fileID: 1949798523}
   - component: {fileID: 1949798522}
   - component: {fileID: 1949798524}
+  - component: {fileID: 1949798525}
   m_Layer: 0
   m_Name: Circle.040 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1949798521
 Transform:
   m_ObjectHideFlags: 0
@@ -21699,6 +22830,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2813250132453748267, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1949798525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949798520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1969833290
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21903,6 +23051,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3251043160451817915, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1976286993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!64 &1981354236
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21925,6 +23090,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6857689473578963052, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &1981354237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1986812771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22101,119 +23283,28 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7722797094005017668, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
---- !u!1 &1998076005
-GameObject:
+--- !u!114 &1995212535
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1998076006}
-  - component: {fileID: 1998076008}
-  - component: {fileID: 1998076007}
-  - component: {fileID: 1998076009}
-  m_Layer: 0
-  m_Name: Pancakes.002 (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1998076006
+  m_GameObject: {fileID: 30649751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
+--- !u!4 &1998076006 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4424341139074035514, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+  m_PrefabInstance: {fileID: 7239921138079496540}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1998076005}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.530589, y: 0.46741357, z: 0.4674135, w: 0.53058887}
-  m_LocalPosition: {x: -13.118, y: 1.3733001, z: 13.394}
-  m_LocalScale: {x: 1.6099, y: 1.6099, z: 1.6099}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1146483011}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 82.756}
---- !u!23 &1998076007
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1998076005}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 829a58957b6568a478ba4fba7950db80, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1998076008
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1998076005}
-  m_Mesh: {fileID: -8488861398173149271, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
---- !u!64 &1998076009
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1998076005}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -8488861398173149271, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
 --- !u!1 &2006268078
 GameObject:
   m_ObjectHideFlags: 0
@@ -22464,6 +23555,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8172680918820081068, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &2014761442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &2018220391
 GameObject:
   m_ObjectHideFlags: 0
@@ -22599,6 +23707,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6049959359099248206, guid: 07b1a729c92bb0b47b1f6c246bcd07f0, type: 3}
+--- !u!114 &2018770499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30649748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  tool: {fileID: 0}
+  objectName: Saint Basil Cathedral
+  valueAmount: 50
+  maxvalue: 300
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &2020413743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23243,7 +24368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2113145749
 Transform:
   m_ObjectHideFlags: 0
@@ -23721,7 +24846,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2135866823
 Transform:
   m_ObjectHideFlags: 0
@@ -23873,6 +24998,133 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2845a2b5e8045428393f016b00e586c5, type: 3}
+--- !u!1001 &2809891723450140923
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1146483011}
+    m_Modifications:
+    - target: {fileID: 8149897798212388758, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.138
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149897798212388758, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.362
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149897798212388758, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.832
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149897798212388758, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149897798212388758, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149897798212388758, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149897798212388758, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149897798212388758, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149897798212388758, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149897798212388758, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8930325499710470794, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_Name
+      value: Pancakes.003 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8930325499710470794, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+--- !u!4 &2809891723450140924 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8149897798212388758, guid: 78d35132d6755004a8843ffd79a374e8, type: 3}
+  m_PrefabInstance: {fileID: 2809891723450140923}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7239921138079496540
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1146483011}
+    m_Modifications:
+    - target: {fileID: 3436120149489283919, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_Name
+      value: Pancakes.002 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436120149489283919, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424341139074035514, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.118
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424341139074035514, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.3733001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424341139074035514, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.394
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424341139074035514, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.53058887
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424341139074035514, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.530589
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424341139074035514, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.46741357
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424341139074035514, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.4674135
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424341139074035514, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424341139074035514, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424341139074035514, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 82.756
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2c890f4e7d3980940b03ad2341acc621, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
