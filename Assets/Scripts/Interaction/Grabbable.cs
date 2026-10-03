@@ -13,6 +13,10 @@ namespace MoskowGameJam.Interaction
         [Header("Prompt Settings")]
         [SerializeField] private string grabPromptText = "[E] Ambil";
 
+        [Header("Placement Rotation Offset Settings")]
+        [Tooltip("Offset rotasi Euler (X, Y, Z dalam derajat) khusus untuk objek ini saat ditaruh di permukaan (contoh: untuk memperbaiki pivot mesh yang miring/terputar 90 derajat).")]
+        [SerializeField] private Vector3 placementRotationOffset = Vector3.zero;
+
         private Renderer[] objectRenderers;
         private MaterialPropertyBlock propBlock;
         private Rigidbody rb;
@@ -23,6 +27,7 @@ namespace MoskowGameJam.Interaction
         private readonly Dictionary<Transform, int> originalLayers = new Dictionary<Transform, int>();
 
         public string GrabPromptText => grabPromptText;
+        public Vector3 PlacementRotationOffset => placementRotationOffset;
         public bool IsHeld => isHeld;
 
         private void Awake()

@@ -1,0 +1,344 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &149244749593305803
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1641832646847775973}
+    m_Modifications:
+    - target: {fileID: 3408492942157400150, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_Name
+      value: Blini
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.053268712
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.053268712
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.053268712
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0005253329
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.014547653
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.005334144
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3408492942157400150, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7850729375757510496}
+    - targetCorrespondingSourceObject: {fileID: 3408492942157400150, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1982766210383834888}
+    - targetCorrespondingSourceObject: {fileID: 3408492942157400150, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 950798089763824690}
+  m_SourcePrefab: {fileID: 100100000, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+--- !u!1 &3269436353207478941 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3408492942157400150, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+  m_PrefabInstance: {fileID: 149244749593305803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &7850729375757510496
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269436353207478941}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1728949, y: 0.17289485, z: 0.014051452}
+  m_Center: {x: 0.0058137025, y: -0.0013839711, z: 0.059360743}
+--- !u!114 &1982766210383834888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269436353207478941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0763f424daa3d324c9c0dfb58a30d4ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.Grabbable
+  glowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  glowIntensity: 1.5
+  grabPromptText: '[E] Ambil'
+  placementRotationOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &950798089763824690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269436353207478941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6fcc51e8fe81a439f28f7fdbce3d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.Interaction.ObjectValue
+  objectName: Blini
+  valueAmount: 100
+  boundsCenterOffset: {x: 0, y: 0, z: 0}
+--- !u!4 &4418911306537001989 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4557951943976257230, guid: 3e7aa5bc0351f324a88f871fb703cf67, type: 3}
+  m_PrefabInstance: {fileID: 149244749593305803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1243643766187565838
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 24.746233
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 24.746233
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 24.746233
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.911
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.657
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.503
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      propertyPath: m_Name
+      value: Wajan dan Bilini
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4418911306537001989}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 836733442751718107}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1772219390774227689}
+  m_SourcePrefab: {fileID: 100100000, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+--- !u!4 &1641832646847775973 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+  m_PrefabInstance: {fileID: 1243643766187565838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2126586035439672927 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7c3e0deb45cedae4896909073d7af633, type: 3}
+  m_PrefabInstance: {fileID: 1243643766187565838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &836733442751718107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126586035439672927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86a9971837a77f34f8c62deda5ef4184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.ToolInteraction.ToolInteractable
+  toolCinemachineCamera: {fileID: 0}
+  activePriority: 100
+  inactivePriority: 0
+  glowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  glowIntensity: 1.5
+  actionPromptText: Aduk Adonan
+  actionPromptSprite: {fileID: 0}
+  placingPromptText: Masukkan ke adonan
+  placingPromptSprite: {fileID: 0}
+  exitPromptText: Selesai
+  exitPromptSprite: {fileID: 0}
+  placedObjectsList: []
+  requiredObjectsList:
+  - {fileID: 2123027944952323805, guid: c451abf88669f844789768691dd91b9b, type: 3}
+  quantityMismatchMultiplier: 2
+  itemPlacementPoint: {fileID: 0}
+  interactionScores: []
+  finalAverageScore: 0
+  transformOutcomes: []
+  transferPlacedObjects: 1
+  transferInteractionScores: 1
+  resetPrefab: {fileID: 0}
+  OnItemPlaced:
+    m_PersistentCalls:
+      m_Calls: []
+  OnToolActionTriggered:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInteractionEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  OnInteractionExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnTransformed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnResetObjectTriggered:
+    m_PersistentCalls:
+      m_Calls: []
+  OnResetObjectCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1772219390774227689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126586035439672927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fdbbea93c550a5438164fd86fc3f87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.ToolInteraction.SpecificInteractions.ToolTimingMiniGameInteraction
+  gameMode: 1
+  needleSpeed: 0.4
+  requiredSuccessHits: 3
+  greenZoneMin: 0.4
+  greenZoneMax: 0.6
+  yellowZoneMin: 0.25
+  yellowZoneMax: 0.75
+  OnPerfectHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGoodHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMissHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTimingCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  needlePosition: 0
+  currentHitCount: 0
+  totalInputScore: 0
+  calculatedFinalScore: 0

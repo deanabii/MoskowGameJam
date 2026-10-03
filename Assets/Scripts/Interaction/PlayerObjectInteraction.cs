@@ -105,6 +105,29 @@ namespace MoskowGameJam.Interaction
         private bool justEnteredToolInteraction;
         private MoskowGameJam.ToolInteraction.ToolInteractable activeToolInteraction;
 
+        [Header("Placing Surface & Ghost Preview Settings")]
+        [Tooltip("Material opsional untuk Ghost Impostor (jika kosong akan dibuat transparan biru secara otomatis)")]
+        [SerializeField] private Material customGhostMaterial;
+
+        [Tooltip("Layer Mask untuk deteksi permukaan PlacingSurface")]
+        [SerializeField] private LayerMask placingSurfaceLayer = ~0;
+
+        [Header("Placement Rotation Offsets")]
+        [Tooltip("Offset rotasi Euler global (X, Y, Z dalam derajat) saat menaruh objek di permukaan")]
+        [SerializeField] private Vector3 globalPlacementRotationOffset = Vector3.zero;
+
+        [Tooltip("Aktifkan tombol rotasi manual [R] saat mengarahkan objek ke permukaan")]
+        [SerializeField] private bool enableLiveRotationKey = true;
+
+        [Tooltip("Tombol rotasi manual saat memegang objek di permukaan")]
+        [SerializeField] private KeyCode liveRotateKey = KeyCode.R;
+
+        [Tooltip("Derajat perubahan rotasi setiap kali tombol rotasi ditekan")]
+        [SerializeField] private float rotationStepDegrees = 90f;
+
+        private float liveRotationYOffset = 0f;
+        private PlacementGhostPreview ghostPreviewManager;
+
         public static PlayerObjectInteraction Instance { get; private set; }
         public Grabbable HeldObject => heldObject;
         public bool IsToolInteracting => isToolInteracting;
@@ -114,6 +137,12 @@ namespace MoskowGameJam.Interaction
             if (Instance == null) Instance = this;
             AutoAssignReferences();
             EnsureGrabHoldTransform();
+
+            ghostPreviewManager = GetComponent<PlacementGhostPreview>();
+            if (ghostPreviewManager == null)
+            {
+                ghostPreviewManager = gameObject.AddComponent<PlacementGhostPreview>();
+            }
         }
 
         private void OnEnable()
@@ -370,6 +399,8 @@ namespace MoskowGameJam.Interaction
 
         public void ClearHeldObject()
         {
+            if (ghostPreviewManager != null) ghostPreviewManager.DestroyGhost();
+
             if (heldObject != null)
             {
                 heldObject = null;
@@ -381,6 +412,7 @@ namespace MoskowGameJam.Interaction
         {
             if (isToolInteracting)
             {
+                if (ghostPreviewManager != null) ghostPreviewManager.DestroyGhost();
                 ClearCurrentTarget();
                 return;
             }
@@ -392,13 +424,16 @@ namespace MoskowGameJam.Interaction
             {
                 ClearCurrentTarget();
 
+                // 1. Cek Raycast ke Tool Container (masukkan ke alat)
                 if (Physics.Raycast(ray, out RaycastHit hitTool, interactDistance, interactableLayer))
                 {
                     var tool = hitTool.collider.GetComponentInParent<MoskowGameJam.ToolInteraction.ToolInteractable>();
                     if (tool != null)
                     {
+                        if (ghostPreviewManager != null) ghostPreviewManager.DestroyGhost();
+
                         SetCurrentToolTarget(tool);
-                        string placingMsg = !string.IsNullOrEmpty(tool.PlacingPromptText) ? $"[Q] {tool.PlacingPromptText}" : "[Q] Masukkan ke alat";
+                        string placingMsg = !string.IsNullOrEmpty(tool.PlacingPromptText) ? PromptKeyFormatter.FormatPromptText(insertKey, tool.PlacingPromptText) : $"[{insertKey}] Masukkan ke alat";
                         
                         SetPromptsVisibility(
                             showGrab: false, grabMsg: "",
@@ -410,11 +445,62 @@ namespace MoskowGameJam.Interaction
                 }
 
                 SetCurrentToolTarget(null);
-                SetPromptsVisibility(
-                    showGrab: true, grabMsg: "[E] Lepas",
-                    showInteract: false, interactMsg: "",
-                    showInsert: false, insertMsg: ""
-                );
+
+                // 2. Cek Raycast ke PlacingSurface untuk Impostor Preview Transparan Biru
+                Collider heldCol = heldObject.GetComponent<Collider>();
+                bool wasColEnabled = false;
+                if (heldCol != null) { wasColEnabled = heldCol.enabled; heldCol.enabled = false; }
+
+                bool foundValidPlacingSurface = false;
+                if (Physics.Raycast(ray, out RaycastHit hitSurface, maxDropDistance, placingSurfaceLayer))
+                {
+                    PlacingSurface surface = hitSurface.collider.GetComponentInParent<PlacingSurface>();
+                    if (surface != null && surface.IsValidHitNormal(hitSurface.normal))
+                    {
+                        foundValidPlacingSurface = true;
+
+                        // Cek Tombol Rotasi Manual ([R] atau liveRotateKey) saat memegang barang di permukaan
+                        if (enableLiveRotationKey && IsKeyPressed(liveRotateKey))
+                        {
+                            liveRotationYOffset = (liveRotationYOffset + rotationStepDegrees) % 360f;
+                        }
+
+                        Vector3 extraRot = globalPlacementRotationOffset + new Vector3(0f, liveRotationYOffset, 0f);
+
+                        if (ghostPreviewManager != null)
+                        {
+                            ghostPreviewManager.UpdateGhost(heldObject, hitSurface.point, hitSurface.normal, surface, playerCamera, customGhostMaterial, extraRot);
+                        }
+
+                        string surfacePrompt = PromptKeyFormatter.FormatPromptText(interactKey, "Taruh");
+                        if (enableLiveRotationKey)
+                        {
+                            surfacePrompt += " | " + PromptKeyFormatter.FormatPromptText(liveRotateKey, $"Putar ({liveRotationYOffset:0}°)");
+                        }
+
+                        SetPromptsVisibility(
+                            showGrab: true, grabMsg: surfacePrompt,
+                            showInteract: false, interactMsg: "",
+                            showInsert: false, insertMsg: ""
+                        );
+                    }
+                }
+
+                if (heldCol != null) heldCol.enabled = wasColEnabled;
+
+                if (!foundValidPlacingSurface)
+                {
+                    // Sembunyikan ghost jika tidak menunjuk ke PlacingSurface valid
+                    if (ghostPreviewManager != null) ghostPreviewManager.DestroyGhost();
+
+                    string releasePrompt = PromptKeyFormatter.FormatPromptText(interactKey, "Lepas");
+                    SetPromptsVisibility(
+                        showGrab: true, grabMsg: releasePrompt,
+                        showInteract: false, interactMsg: "",
+                        showInsert: false, insertMsg: ""
+                    );
+                }
+
                 return;
             }
 
@@ -578,6 +664,7 @@ namespace MoskowGameJam.Interaction
                 return;
             }
 
+            liveRotationYOffset = 0f;
             heldObject = target;
             heldObject.Grab(grabHoldTransform, heldLayerIndex);
             ClearCurrentTarget();
@@ -587,10 +674,24 @@ namespace MoskowGameJam.Interaction
         {
             if (heldObject == null) return;
 
-            // Lakukan Raycast dari Kamera ke depan untuk mencari permukaan penempatan objek
+            // 1. JIKA IMPOSTOR GHOST PREVIEW AKTIF DI ATAS PLACING SURFACE
+            if (ghostPreviewManager != null && ghostPreviewManager.HasActiveGhost)
+            {
+                heldObject.transform.position = ghostPreviewManager.GhostPosition;
+                heldObject.transform.rotation = ghostPreviewManager.GhostRotation;
+
+                ghostPreviewManager.DestroyGhost();
+
+                heldObject.Drop();
+                heldObject = null;
+                liveRotationYOffset = 0f;
+                HideUIPrompt();
+                return;
+            }
+
+            // 2. FALLBACK: MEKANISME DROP LAMA
             Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
-            // Matikan sementara collider objek yang dipegang agar Raycast tidak membentur objek itu sendiri
             Collider heldCollider = heldObject.GetComponent<Collider>();
             bool wasColliderEnabled = false;
             if (heldCollider != null)
@@ -601,7 +702,6 @@ namespace MoskowGameJam.Interaction
 
             if (enableRayBasedDrop && Physics.Raycast(ray, out RaycastHit hit, maxDropDistance, dropSurfaceLayer))
             {
-                // Mengenai permukaan (meja/lantai/rak) -> Pindahkan posisi ke titik benturan + offset
                 heldObject.transform.position = hit.point + (hit.normal * 0.02f) + dropSurfaceOffset;
             }
 

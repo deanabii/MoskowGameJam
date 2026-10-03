@@ -89,12 +89,14 @@ namespace PhotoModeSystem
             {
                 detector.Initialize(mainCam);
             }
-            var (visibleNames, totalValue) = detector != null ? detector.DetectVisibleObjects() : (new List<string>(), 0f);
+            var (visibleNames, visibleObjects, totalValue) = detector != null ? 
+                detector.DetectVisibleObjects() : 
+                (new List<string>(), new List<ObjectPhotoEntry>(), 0f);
 
             // 3. Simpan Ke File System (Windows/WebGL)
             if (PhotoStorageManager.Instance != null)
             {
-                PhotoStorageManager.Instance.SaveCapturedTexture(snapshot, visibleNames, totalValue);
+                PhotoStorageManager.Instance.SaveCapturedTexture(snapshot, visibleNames, visibleObjects, totalValue);
             }
 
             // 4. Set UI Pratinjau Foto

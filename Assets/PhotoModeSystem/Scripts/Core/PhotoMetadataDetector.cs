@@ -17,7 +17,7 @@ namespace PhotoModeSystem
             targetCamera = cam;
         }
 
-        public (List<string> visibleNames, float totalValue) DetectVisibleObjects()
+        public (List<string> visibleNames, List<ObjectPhotoEntry> visibleObjects, float totalValue) DetectVisibleObjects()
         {
             if (targetCamera == null)
             {
@@ -25,12 +25,13 @@ namespace PhotoModeSystem
             }
 
             List<string> names = new List<string>();
+            List<ObjectPhotoEntry> entries = new List<ObjectPhotoEntry>();
             float sumValue = 0f;
 
             if (targetCamera == null)
             {
                 Debug.LogWarning("[PhotoMetadataDetector] Main Camera tidak ditemukan!");
-                return (names, sumValue);
+                return (names, entries, sumValue);
             }
 
             Plane[] frustumPlanes = GeometryUtility.CalculateFrustumPlanes(targetCamera);
@@ -51,20 +52,26 @@ namespace PhotoModeSystem
                     Vector3 direction = targetPos - camPos;
                     float distance = direction.magnitude;
 
+                    bool isVisible = false;
                     if (!Physics.Raycast(camPos, direction.normalized, out RaycastHit hit, distance, obstacleLayerMask))
                     {
-                        names.Add(obj.objectName);
-                        sumValue += obj.valueAmount;
+                        isVisible = true;
                     }
                     else if (hit.transform == obj.transform || hit.transform.IsChildOf(obj.transform))
                     {
+                        isVisible = true;
+                    }
+
+                    if (isVisible)
+                    {
                         names.Add(obj.objectName);
+                        entries.Add(new ObjectPhotoEntry(obj.objectName, obj.valueAmount));
                         sumValue += obj.valueAmount;
                     }
                 }
             }
 
-            return (names, sumValue);
+            return (names, entries, sumValue);
         }
     }
 }

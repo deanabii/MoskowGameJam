@@ -33,9 +33,24 @@ namespace PhotoModeSystem
 
         public PhotoData SaveCapturedTexture(Texture2D texture, List<string> visibleNames, float totalValue)
         {
+            List<ObjectPhotoEntry> entries = new List<ObjectPhotoEntry>();
+            if (visibleNames != null)
+            {
+                float avgValue = visibleNames.Count > 0 ? totalValue / visibleNames.Count : 0f;
+                foreach (string name in visibleNames)
+                {
+                    entries.Add(new ObjectPhotoEntry(name, avgValue));
+                }
+            }
+            return SaveCapturedTexture(texture, visibleNames, entries, totalValue);
+        }
+
+        public PhotoData SaveCapturedTexture(Texture2D texture, List<string> visibleNames, List<ObjectPhotoEntry> visibleObjects, float totalValue)
+        {
             PhotoData data = new PhotoData
             {
                 visibleObjectNames = visibleNames,
+                visibleObjects = visibleObjects,
                 totalValue = totalValue
             };
 

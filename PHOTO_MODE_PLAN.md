@@ -90,11 +90,16 @@ Untuk memastikan sistem berjalan mulus baik di **Windows Standalone** maupun **W
    - Di kanan atas terdapat tombol **X** untuk keluar dan mengembalikan kendali pergerakan & interaksi.
    - Pada panel Galeri: Foto dapat diklik untuk **Zoom**, **Hapus**, atau **Share** ke Sosial Media.
 
-4. **Sosial Media & Algoritma Impact**:
+4. **Sosial Media & Algoritma Impact (Aturan Repitisi Objek)**:
    - Menekan **Share** dari foto akan memindahkan tampilan ke Tab Sosial Media.
+   - **Aturan Repitisi Objek (Diminishing Return)**:
+     - Objek yang sama hanya dihitung nilainya maksimal **2 kali**:
+       - Postingan **ke-1**: Objek memberikan **Nilai Penuh (100%)**.
+       - Postingan **ke-2**: Objek memberikan **Setengah Nilai (50%)**.
+       - Postingan **ke-3 dan seterusnya**: Objek memberikan **Nilai 0 (0%)**.
    - **Rumus Algoritma (Inspector Configurable)**:
-     - **Image Value** = Total penjumlahan `ObjectValue` di foto.
-     - **Followers Baru** = `Random(MinFollowerRatio, MaxFollowerRatio) * Image Value` (Default: `0.5` - `0.75`).
+     - **Effective Image Value** = Penjumlahan nilai efektif seluruh objek ber-`ObjectValue` di foto berdasarkan aturan repitisi.
+     - **Followers Baru** = `Random(MinFollowerRatio, MaxFollowerRatio) * Effective Image Value` (Default: `0.5` - `0.75`).
      - **Likes** = `Random(MinLikeRatio, MaxLikeRatio) * Total Followers` (Default: `0.75` - `2.0`).
      - **Gold Donasi** = `Random(MinGoldRatio, MaxGoldRatio) * 100 * Total Followers` (Default: `0.75` - `2.0`).
 

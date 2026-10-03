@@ -1,3 +1,5 @@
+using MoskowGameJam.ToolInteraction;
+using MoskowGameJam.ToolInteraction.SpecificInteractions;
 using UnityEngine;
 
 namespace MoskowGameJam.Interaction
@@ -5,17 +7,33 @@ namespace MoskowGameJam.Interaction
     [DisallowMultipleComponent]
     public class ObjectValue : MonoBehaviour
     {
+        public ToolInteractable tool;
         [Header("Object Value Metadata")]
         [Tooltip("Nama objek yang akan dicatat pada metadata foto.")]
         public string objectName = "Special Object";
 
         [Tooltip("Nilai / poin yang disumbangkan objek ini jika terpotret.")]
         public float valueAmount = 100f;
+        public float maxvalue = 300f;
 
         [Header("Detection Settings")]
         [Tooltip("Offset pusat objek untuk pengecekan raycast pandangan kamera.")]
         public Vector3 boundsCenterOffset = Vector3.zero;
 
+        private void Start()
+        {
+            if (tool!=null)
+            {
+                valueAmount = maxvalue * tool.FinalAverageScore;
+            }
+        }
+        private void Update()
+        {
+            if (tool != null)
+            {
+                valueAmount = maxvalue * tool.FinalAverageScore;
+            }
+        }
         public Vector3 GetWorldCenter()
         {
             Collider col = GetComponent<Collider>();
