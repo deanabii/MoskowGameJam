@@ -139,7 +139,7 @@ namespace MoskowGameJam.NPC
         private void OnStartDialogue(NPCInteractable npc, Transform player)
         {
             activeNPC = npc;
-            activeLines = npc.DialogueLines;
+            activeLines = npc.CurrentDialogueLines;
             lineIndex = 0;
 
             if (activeLines == null || activeLines.Length == 0)
