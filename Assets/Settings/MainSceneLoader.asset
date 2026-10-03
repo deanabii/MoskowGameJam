@@ -16,5 +16,6 @@ MonoBehaviour:
   - Moskow
   - GrabbableInteraction
   - PhotoModeUI
-  activeSceneName: MainGame
+  - NPC Test
+  activeSceneName: Moskow
   loadAsynchronously: 0

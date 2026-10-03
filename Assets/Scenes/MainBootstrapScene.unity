@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1728901a79ceae45a40d601ca3cd9ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoskowGameJam.SceneManagement.AdditiveSceneLoader
-  sceneConfig: {fileID: 0}
+  sceneConfig: {fileID: 11400000, guid: 266f1264b6e772142bb41624e4378b5a, type: 2}
   loadOnStart: 1
 --- !u!4 &1611374067
 Transform:
